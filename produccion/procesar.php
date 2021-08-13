@@ -58,7 +58,8 @@ if(!isset($_SESSION['username'])){
 
     <div class="row mt-5">
     <div class="col"></div>
-    <div class="col"><button class="btn btn-danger" onClick="procesar()"> Confirmar e ingresar al stock</button></div>
+    <div class="col"><button class="btn btn-danger" onClick="location.href='nuevos.php'"> Cancelar lote y volver</button></div>
+    <div class="col"><button class="btn btn-success" onClick="procesar()"> Confirmar e ingresar al stock</button></div>
     <div class="col"></div>
     </div>
 

@@ -8,7 +8,7 @@ if(!isset($_SESSION['username'])){
     $tacho = $_POST['tacho'];
     $peso = str_replace(',', '.', $_POST['peso']);
 
-    if(strlen($tacho)<15){
+    if( strlen($tacho)<15 || strlen($tacho)>25 ){
         header('Location: ../loteNuevo.php');
     }elseif(strlen($peso)>6 || $peso > 15 || $peso < 3){
         header('Location: ../loteNuevo.php');
