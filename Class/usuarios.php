@@ -121,6 +121,38 @@ class Usuarios
     }
 
 
+    public function modificarCondicion($multiplo, $minimo, $valor){
+        
+        include __DIR__."/../AccesoDatos/conn.php";
+
+        if($multiplo == 'true'){
+            $stmt = $dbh->prepare("UPDATE ph_pedidos_opciones SET estado = 1, valor = {$valor} WHERE condicion = 'MULTIPLO' ");
+            $stmt->execute();
+            
+            $stmt1 = $dbh->prepare("UPDATE ph_pedidos_opciones SET estado = 0, valor = 0 WHERE condicion = 'MINIMO' ");
+            $stmt1->execute();
+        }
+
+        if($minimo == 'true'){
+            $stmt = $dbh->prepare("UPDATE ph_pedidos_opciones SET estado = 1, valor = {$valor} WHERE condicion = 'MINIMO' ");
+            $stmt->execute();
+            
+            $stmt1 = $dbh->prepare("UPDATE ph_pedidos_opciones SET estado = 0, valor = 0 WHERE condicion = 'MULTIPLO' ");
+            $stmt1->execute();
+        }
+    }
+
+    public function traerCondiciones(){
+
+        include __DIR__."/../AccesoDatos/conn.php";
+        $stmt = $dbh->prepare("SELECT * FROM ph_pedidos_opciones WHERE estado = 1");
+        $stmt->setFetchMode(PDO::FETCH_OBJ);
+        $stmt->execute();
+        $dato = $stmt->fetchAll(); 
+        return $dato;
+
+    }
+
 
 
 

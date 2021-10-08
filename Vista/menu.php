@@ -1,6 +1,6 @@
 <?php
 define(  ruta, 'https://www.perlattohelados.com.ar/pedidos__dev/' ) ;
-// @define(  ruta, 'http://localhost/perlatto/' ) ;
+// @define(  ruta, 'https://localhost/perlatto/' ) ;
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -28,6 +28,7 @@ Pedidos
 <a class="dropdown-item" href="<?=ruta;?>pedidos/pendientes.php">Pedidos Abiertos</a>
 <a class="dropdown-item" href="<?=ruta;?>pedidos/ordenados.php">Abiertos Ordenados</a>
 <a class="dropdown-item" href="<?=ruta;?>pedidos/detalleGustos.php">Abiertos Gustos</a>
+<a class="dropdown-item" href="<?=ruta;?>pedidos/todosPedidosGustoLocal.php">Pedidos por gusto por local</a>
 <a class="dropdown-item" href="<?=ruta;?>pedidos/todosPedidos.php">Todos los pedidos</a>
 <?php } ?>
 </div>

@@ -149,24 +149,41 @@ function modUser(){
     matrizUsuario[10] = user;
     matrizUsuario[11] = pass;
     matrizUsuario[12] = estado;
-
-
     
-    var lunes = document.getElementById("chkLunes").checked;
-    var martes = document.getElementById("chkMartes").checked;
-    var miercoles = document.getElementById("chkMiercoles").checked;
-    var jueves = document.getElementById("chkJueves").checked;
-    var viernes = document.getElementById("chkViernes").checked;
-    var sabado = document.getElementById("chkSabado").checked;
-    var domingo = document.getElementById("chkDomingo").checked;
+    let urlParam = new URLSearchParams(window.location.search);
 
-    if(lunes == true){diasEntrega[0] = 1;}else{diasEntrega[0] = 0}
-    if(martes == true){diasEntrega[1] = 1;}else{diasEntrega[1] = 0}
-    if(miercoles == true){diasEntrega[2] = 1;}else{diasEntrega[2] = 0}
-    if(jueves == true){diasEntrega[3] = 1;}else{diasEntrega[3] = 0}
-    if(viernes == true){diasEntrega[4] = 1;}else{diasEntrega[4] = 0}
-    if(sabado == true){diasEntrega[5] = 1;}else{diasEntrega[5] = 0}
-    if(domingo == true){diasEntrega[6] = 1;}else{diasEntrega[6] = 0}
+    if(urlParam.get('nro') == 0){
+        let condicion = [];
+
+        condicion[0] = document.getElementById("condicionMultiplo").checked;
+        condicion[1] = document.getElementById("condicionMinimo").checked;
+        condicion[2] = document.getElementById("condicionValor").value;
+
+        modificarAdmin(matrizUsuario, condicion);
+
+        return;
+
+        
+    }else{
+
+        var lunes = document.getElementById("chkLunes").checked;
+        var martes = document.getElementById("chkMartes").checked;
+        var miercoles = document.getElementById("chkMiercoles").checked;
+        var jueves = document.getElementById("chkJueves").checked;
+        var viernes = document.getElementById("chkViernes").checked;
+        var sabado = document.getElementById("chkSabado").checked;
+        var domingo = document.getElementById("chkDomingo").checked;
+    
+        if(lunes == true){diasEntrega[0] = 1;}else{diasEntrega[0] = 0}
+        if(martes == true){diasEntrega[1] = 1;}else{diasEntrega[1] = 0}
+        if(miercoles == true){diasEntrega[2] = 1;}else{diasEntrega[2] = 0}
+        if(jueves == true){diasEntrega[3] = 1;}else{diasEntrega[3] = 0}
+        if(viernes == true){diasEntrega[4] = 1;}else{diasEntrega[4] = 0}
+        if(sabado == true){diasEntrega[5] = 1;}else{diasEntrega[5] = 0}
+        if(domingo == true){diasEntrega[6] = 1;}else{diasEntrega[6] = 0}
+
+    }
+
 
     var vacio = 0;
 
@@ -210,6 +227,35 @@ function modificarUsuario(matrizUsuario, diasEntrega) {
 		success: function(data) {
 			swal({
                 title: "Usuario modificado!",
+                text: "Datos cargados: "+data,
+                icon: "success",
+                button: "Aceptar",
+              })
+              .then(function() {
+                window.location = "usuarioListar.php";
+            })
+            ;
+            
+        } 
+ 
+	});
+	
+}
+
+
+function modificarAdmin(matrizUsuario, condicion) {
+	
+	$.ajax({
+        url: 'Controlador/modificarAdmin.php',
+		method: 'POST',
+		data: {
+            matrizUsuario: matrizUsuario, 
+            condicion: condicion
+        },
+
+		success: function(data) {
+			swal({
+                title: "Administrador modificado!",
                 text: "Datos cargados: "+data,
                 icon: "success",
                 button: "Aceptar",

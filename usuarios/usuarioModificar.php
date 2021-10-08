@@ -10,6 +10,10 @@ if(!isset($_SESSION['username'])){
 
     $usuario = new Usuarios();
     $listado = $usuario->traerPorNum($nroLocalTraer);
+    if($nroLocalTraer == 0){
+      $condicion = $usuario->traerCondiciones();   
+      $arrayCondicion = (array) $condicion[0];
+    }
     
     $dia = new Dia();
     $dias = $dia->traerPorNumDiasEntrega($nroLocalTraer);
@@ -166,8 +170,49 @@ foreach ($listado as $key => $local) {
 
 	
   </div>
+
+  <?php 
+  if($nroLocalTraer == 0){
+  ?>
+
+<div class="row">
+
+  <div class="col-3 border border-dark pt-2 pb-3">
+
+    <div class="form-row">
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="condicionPedidos" id="condicionMultiplo" <?php if($arrayCondicion['condicion'] == 'MULTIPLO'){echo 'checked'; } ?>>
+        <label class="form-check-label" for="condicionMultiple">Multiplo</label>
+      </div>
+    </div>
   
+    <div class="form-row">  
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="condicionPedidos" id="condicionMinimo" <?php if($arrayCondicion['condicion'] == 'MINIMO'){echo 'checked'; } ?> >
+        <label class="form-check-label" for="condicionMinimo">Minimo</label>
+      </div>
+    </div>
+  
+    <div class="form-row">  
+      <div class="form-check">
+        <input class="form-control form-control-sm mt-1" type="text" name="condicionPedidos" id="condicionValor" value="<?=$arrayCondicion['valor']?>" >
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+  <div class="col-5"></div>
+  <div class="col-4"></div>
+</div>
+  
+
+
   <?php
+  }
+
 }
 ?>
   

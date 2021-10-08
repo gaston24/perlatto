@@ -28,6 +28,33 @@ function busquedaRapida() {
 
 
 
+//////////////////////CANTIDAD DEL PEDIDO//////////////////////
+
+function changeCantidad(){
+    let cantidad = Array.from(document.getElementById("id_tabla").rows);
+
+    let total = 0;
+    cantidad.forEach(x=>{
+        let valor = x.querySelectorAll('td');
+
+            valor.forEach(function(y, z){
+                if(z==3){
+
+                    total += parseInt(y.firstChild.value);
+
+                }
+        })
+    });
+
+    // console.log(total);
+
+    document.getElementById("cantBox").value = total;
+
+
+    
+}
+
+
 
 
 //////////////////////ENVIO DEL PEDIDO//////////////////////
@@ -55,7 +82,7 @@ function enviarPedido(){
     }
 
 
-    console.log(matriz);
+    // console.log(matriz);
 
     
     var suma = 0;
@@ -67,8 +94,55 @@ function enviarPedido(){
     }
     
     if(suma!= 0){
-        console.log("llegue");
-        postear(matriz, suc);
+
+        const funcAsync = async ()=>{
+            try {
+                const datos2 = await buscarCondicion();
+                const datos3 = JSON.parse(datos2);
+                
+                if(datos3.condicion == 'MINIMO'){
+
+                    if(suma < parseInt(datos3.valor)){
+                        swal({
+                            title: "Error!",
+                            text: "Las cantidades deben tener un minimo de "+datos3.valor+" unidades pedidas!",
+                            icon: "warning",
+                            button: "Aceptar",
+                          });
+                    }else{
+                        console.log("llegue");
+                        postear(matriz, suc);
+                    }
+
+                }
+
+
+                if(datos3.condicion == 'MULTIPLO'){
+
+                    if(suma%parseInt(datos3.valor) != 0){
+                        swal({
+                            title: "Error!",
+                            text: "Las cantidades deben ser multiplo de "+datos3.valor+"!",
+                            icon: "warning",
+                            button: "Aceptar",
+                          });
+                    }else{
+                        console.log("llegue");
+                        postear(matriz, suc);
+                    }
+
+                }
+
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        funcAsync();
+
+
+
     }else{
         swal({
             title: "Error!",
@@ -86,8 +160,8 @@ function enviarPedido(){
 //////////////////////POSTEO//////////////////////
 
 function postear(matriz, suc) {
-	
-	$.ajax({
+
+    $.ajax({
         url: 'Controlador/cargarPedido.php',
 		method: 'POST',
 		data: {
@@ -268,5 +342,25 @@ function insertarTachosPedido(nroPedido) {
         } 
  
 	});
+	
+}
+
+function buscarCondicion() {
+	
+	var condicion = $.ajax({
+        url: 'Controlador/condicionPedidos.php',
+		method: 'GET',
+		data: {
+
+        },
+
+		success: function(data) {
+            condiciones = JSON.parse(data);         
+			return condiciones;
+        } 
+ 
+	});
+
+    return condicion;
 	
 }

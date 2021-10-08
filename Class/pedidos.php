@@ -302,21 +302,41 @@ class Pedido
         sum(San_fernando) San_fernando
         FROM
         (
-        SELECT COD_GUSTO, DESC_GUSTO, CANT_PED Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 1
+        SELECT COD_GUSTO, DESC_GUSTO, CANT_PED Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 1
         UNION
-        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, CANT_PED Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 2
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, CANT_PED Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 2
         UNION
-        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, CANT_PED Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 3
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, CANT_PED Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 3
         UNION
-        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, CANT_PED Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 4
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, CANT_PED Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 4
         UNION
-        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, CANT_PED Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 5
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, CANT_PED Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 5
         UNION
-        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, CANT_PED San_andres, 0 San_martin, 0 San_fernando FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 6
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, CANT_PED San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 6
         UNION
-        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, CANT_PED San_martin, 0 San_fernando FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 7
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, CANT_PED San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 7
         UNION
-        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, CANT_PED San_fernando FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 8
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, CANT_PED San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 8
+        UNION
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, CANT_PED Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 9
+        UNION
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, CANT_PED Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 10
+        UNION
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, CANT_PED San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 11
+        UNION
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, CANT_PED Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 12
+        UNION
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, CANT_PED Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 13
+        UNION
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, CANT_PED Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 14
+        UNION
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, CANT_PED Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 15
+        UNION
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, CANT_PED San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 16
+        UNION
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, CANT_PED Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 17
+        UNION
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, CANT_PED Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 18
         )A
         group by COD_GUSTO, DESC_GUSTO;
         ");
@@ -326,6 +346,23 @@ class Pedido
         return $dato;
         
     }
+
+    public function pedidosGustoPorLocal(){
+        include __DIR__."/../AccesoDatos/conn.php";
+        $stmt = $dbh->prepare("
+        SELECT b.LOCAL, a.cod_gusto COD_GUSTO, c.DESC_GUSTO, sum(CANT_PED) CANT_PEDIDA 
+        FROM ph_pedidos_det a 
+        inner join ph_locales b on a.NRO_LOCAL = b.NRO_LOCAL  
+        inner join ph_gustos c on a.COD_GUSTO = c.COD_GUSTO
+        group by a.cod_gusto, b.LOCAL, c.DESC_GUSTO;
+        ");
+        
+        $stmt->setFetchMode(PDO::FETCH_OBJ);
+        $stmt->execute();
+        $dato = $stmt->fetchAll(); 
+        return $dato;
+
+    }    
 
 
 }

@@ -26,7 +26,7 @@ $listado = $gustos->traerActivos();
                 <th style="width: 0%"></th>
 				<th style="width: 25%"> <div class="row"> <div class="col-4 mt-2">GRUPO</div> <div class="col-8"><input type="text" class="form-control form-control-sm" onkeyup="busquedaRapida()" id="textBox" size="2" placeholder="Filtro Rapido" autofocus></div>   </div>  </th>
 				<th style="width: 25%">DESCRIPCION</th>
-				<th style="width: 25%">CANTIDAD</th>
+				<th style="width: 25%"> <div class="row"> <div class="col-4 mt-2">CANTIDAD</div> <div class="col-8"><input type="text" class="form-control form-control-sm" id="cantBox" size="2" value="0" disabled></div>   </div>  </th>
                 <th style="width: 25%"><button class="btn btn-primary btn-sm" onClick="enviarPedido()">Enviar</button></th>
             </tr>
         </thead> 
@@ -38,7 +38,7 @@ $listado = $gustos->traerActivos();
                     <td><input type="hidden" name="codigo[]" value="<?= $value->COD_GUSTO; ?>"></td>
                     <td><?= $value->GRUPO; ?></td>
                     <td><?= $value->DESC_GUSTO; ?></td>
-                    <td><input type="number" class="form-control" name="cantidad[]" value="0"></td>
+                    <td><input type="number" class="form-control" id="cantidadGusto" name="cantidad[]" value="0" onkeyup="changeCantidad()"></td>
                     <td></td>
                 </tr>
 
