@@ -18,7 +18,7 @@ if(!isset($_SESSION['username'])){
 <title>Perlatto - Pendientes</title>
 <?php include __DIR__."/../Vista/head.php";   ?>
 
-<div class="container mt-2 mb-2">
+<div class="container-fluid mt-2 mb-2">
     <!-- ESCRIBIR A PARTIR DE ACA -->
     <table class="table table-hover" id="todosPedidos">
         <thead>

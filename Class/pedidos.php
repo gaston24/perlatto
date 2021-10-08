@@ -297,9 +297,25 @@ class Pedido
     public function pendientesOrdenados(){
         include __DIR__."/../AccesoDatos/conn.php";
         $stmt = $dbh->prepare("
-        SELECT COD_GUSTO, DESC_GUSTO, sum(Villa_adelina) Villa_adelina, sum(Munro) Munro, sum(Olivos) Olivos, 
-        sum(Caseros) Caseros, sum(Villa_ballester) Villa_ballester, sum(San_andres) San_andres, sum(San_martin) San_martin, 
-        sum(San_fernando) San_fernando
+        SELECT COD_GUSTO, DESC_GUSTO, 
+        sum(Villa_adelina) Villa_adelina, 
+        sum(Munro) Munro, 
+        sum(Olivos) Olivos, 
+        sum(Caseros) Caseros, 
+        sum(Villa_ballester) Villa_ballester, 
+        sum(San_andres) San_andres, 
+        sum(San_martin) San_martin, 
+        sum(San_fernando) San_fernando, 
+        sum(Santos_Lugares) Santos_Lugares, 
+        sum(Martinez) Martinez, 
+        sum(San_isidro) San_Isidro, 
+        sum(Garin) Garin, 
+        sum(Escobar) Escobar, 
+        sum(Villa_Bosch) Villa_Bosch, 
+        sum(Tigre) Tigre, 
+        sum(San_Miguel) San_Miguel, 
+        sum(Ramos_Mejia) Ramos_Mejia, 
+        sum(Moron) Moron
         FROM
         (
         SELECT COD_GUSTO, DESC_GUSTO, CANT_PED Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 1
