@@ -25,14 +25,24 @@ if(!isset($_SESSION['username'])){
             <tr>
                 <th scope="col">COD GUSTO</th>
                 <th scope="col">DESC GUSTO</th>
-                <th scope="col">VILLA ADELINA</th>
-                <th scope="col">MUNRO</th>
-                <th scope="col">OLIVOS</th>
-                <th scope="col">CASEROS</th>
-                <th scope="col">VILLA BALLESTER</th>
-                <th scope="col">SAN ANDRES</th>
-                <th scope="col">SAN MARTIN</th>
-                <th scope="col">SAN FERNANDO</th>
+                <th scope="col">Villa Adelina</th>
+                <th scope="col">Munro</th>
+                <th scope="col">Olivos</th>
+                <th scope="col">Caseros</th>
+                <th scope="col">Villa Ballester</th>
+                <th scope="col">San Andres</th>
+                <th scope="col">San Martin</th>
+                <th scope="col">San Fernando</th>
+                <th scope="col">Santos Lugares</th>
+                <th scope="col">Martinez</th>
+                <th scope="col">San isidro</th>
+                <th scope="col">Garin</th>
+                <th scope="col">Escobar</th>
+                <th scope="col">Villa Bosch</th>
+                <th scope="col">Tigre</th>
+                <th scope="col">San Miguel</th>
+                <th scope="col">Ramos Mejia</th>
+                <th scope="col">Moron</th>
             </tr>
         </thead>
         <tbody>
@@ -51,6 +61,16 @@ if(!isset($_SESSION['username'])){
                     <td><?=$value->San_andres;?></td>
                     <td><?=$value->San_martin;?></td>
                     <td><?=$value->San_fernando;?></td>
+                    <td><?=$value->Santos_Lugares;?></td>
+                    <td><?=$value->Martinez;?></td>
+                    <td><?=$value->San_Isidro;?></td>
+                    <td><?=$value->Garin;?></td>
+                    <td><?=$value->Escobar;?></td>
+                    <td><?=$value->Villa_Bosch;?></td>
+                    <td><?=$value->Tigre;?></td>
+                    <td><?=$value->San_Miguel;?></td>
+                    <td><?=$value->Ramos_Mejia;?></td>
+                    <td><?=$value->Moron;?></td>
 
                 </tr>
             <?php    
