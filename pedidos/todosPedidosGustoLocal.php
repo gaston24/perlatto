@@ -8,10 +8,18 @@ if(!isset($_SESSION['username'])){
     $user = $_SESSION['username'];
     $suc = $_SESSION['nroSuc'];
 
+    if(!isset($_GET['desde'])){
+        $desde = date("Y-m-d");
+        $hasta = date("Y-m-d");
+    }else{
+        $desde = $_GET['desde'];
+        $hasta = $_GET['hasta'];
+    }
+
     include __DIR__."/../Class/pedidos.php";
 
     $pendientes = new Pedido();
-    $listado = $pendientes->pedidosGustoPorLocal();
+    $listado = $pendientes->pedidosGustoPorLocal($desde, $hasta);
 
 ?> 
 <?php include __DIR__."/../Vista/head_0.php";   ?>
@@ -19,6 +27,30 @@ if(!isset($_SESSION['username'])){
 <?php include __DIR__."/../Vista/head.php";   ?>
 
 <div class="container mt-2 mb-2">
+
+<form action="#" method="get">
+    <div class="form-row">
+        <div class="col-md-2 mb-3">
+        </div>
+        <div class="col-md-1 mb-3">
+        <p class="text-right mt-1">Desde:</p>
+        </div>
+        <div class="col-md-2 mb-3">
+            <input type="date" class="form-control" name="desde" value="<?=$desde?>" >
+        </div>
+        <div class="col-md-1 mb-3">
+        <p class="text-right mt-1">Hasta:</p>
+        </div>
+        <div class="col-md-2 mb-3">
+            <input type="date" class="form-control" name="hasta" value="<?=$hasta?>" >
+        </div>
+        <div class="col-md-2 mb-3">
+            <input type="submit" class="btn btn-primary " value="Consultar">
+        </div>
+        <div class="col-md-2 mb-3">
+        </div>
+    </div>
+</form>
     <!-- ESCRIBIR A PARTIR DE ACA -->
     <table class="table table-hover" id="todosPedidos">
         <thead>

@@ -363,14 +363,19 @@ class Pedido
         
     }
 
-    public function pedidosGustoPorLocal(){
+    public function pedidosGustoPorLocal($desde, $hasta){
         include __DIR__."/../AccesoDatos/conn.php";
         $stmt = $dbh->prepare("
-        SELECT b.LOCAL, a.cod_gusto COD_GUSTO, c.DESC_GUSTO, sum(CANT_PED) CANT_PEDIDA 
-        FROM ph_pedidos_det a 
+        select a.*, b.LOCAL, c.DESC_GUSTO from
+        (
+        select a.NRO_LOCAL, COD_GUSTO, sum(CANT_PED) CANT_PEDIDA 
+        from ph_pedidos_enc a
+        inner join ph_pedidos_det b on a.NRO_LOCAL = b.NRO_LOCAL and a.NRO_PEDIDO = b.NRO_PEDIDO
+        where FECHA_PED between '{$desde}' and '{$hasta}'
+        GROUP BY a.NRO_LOCAL, COD_GUSTO
+        )a 
         inner join ph_locales b on a.NRO_LOCAL = b.NRO_LOCAL  
         inner join ph_gustos c on a.COD_GUSTO = c.COD_GUSTO
-        group by a.cod_gusto, b.LOCAL, c.DESC_GUSTO;
         ");
         
         $stmt->setFetchMode(PDO::FETCH_OBJ);
