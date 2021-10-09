@@ -1,28 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.7.3
--- https://www.phpmyadmin.net/
---
--- Servidor: localhost:3306
--- Tiempo de generación: 22-12-2020 a las 19:53:03
--- Versión del servidor: 5.6.40-84.0-log
--- Versión de PHP: 5.6.30
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de datos: `monichei_wp837`
---
-CREATE DATABASE IF NOT EXISTS `monichei_wp837` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `monichei_wp837`;
 
 DELIMITER $$
 --
@@ -14410,6 +14385,17 @@ ALTER TABLE `ph_talonario`
 ALTER TABLE `ph_usuarios`
   MODIFY `ID_USUARIO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+  create table ph_pedidos_opciones
+(
+ID int NOT NULL AUTO_INCREMENT,
+condicion varchar(50) not null, 
+estado int not null default 0,
+valor int not null default 0,
+primary key (ID)
+);
+
+insert into ph_pedidos_opciones (condicion , estado, valor) values ('MULTIPLO', 1, 12);
+insert into ph_pedidos_opciones (condicion) values ('MINIMO');
+
+
