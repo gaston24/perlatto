@@ -4,7 +4,7 @@
 dev = 1
 produccion = 2
 */
-$entorno = 1;
+$entorno = 2;
 
 if($entorno == 1){
 
@@ -27,7 +27,8 @@ if($entorno == 1){
   try {
 
     $dbname = "perlattohelados_com_ar";
-    $dsn = "mysql:host=aplin.amalthea.dreamhost.com;dbname=$dbname";
+    // $dsn = "mysql:host=aplin.amalthea.dreamhost.com;dbname=$dbname";
+    $dsn = "mysql:host=heckathorne.iad1-mysql-e2-20a.dreamhost.com;dbname=$dbname";
     $options = array(
       PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
     );
