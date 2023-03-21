@@ -1,6 +1,6 @@
-<script src="/perlatto/assets/bootstrap/jquery-3.5.1.slim.min.js" ></script>
-<script src="/perlatto/assets/bootstrap/popper.min.js"  ></script>
-<script src="/perlatto/assets/bootstrap/bootstrap.min.js"  ></script>
+<script src="/assets/bootstrap/jquery-3.5.1.slim.min.js" ></script>
+<script src="/assets/bootstrap/popper.min.js"  ></script>
+<script src="/assets/bootstrap/bootstrap.min.js"  ></script>
 
 <!-- <script src="/pedidos__dev/assets/bootstrap/jquery-3.5.1.slim.min.js" ></script>
 <script src="/pedidos__dev/assets/bootstrap/popper.min.js"  ></script>

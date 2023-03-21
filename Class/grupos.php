@@ -3,11 +3,18 @@
 class Grupo
 {
 
+    function __construct(){
 
+        require_once 'conexion.php';
+        $this->conn = new Conexion;
+        $this->cid = $this->conn->conectar();
+        
+    }
 
     public function traerTodos(){
 
-        include __DIR__."/../AccesoDatos/conn.php";
+
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("SELECT * FROM ph_grupos");
         $stmt->setFetchMode(PDO::FETCH_OBJ);
         $stmt->execute();
@@ -18,7 +25,8 @@ class Grupo
 
     public function insertarGrupo($codGrupo, $descGrupo){
         
-        include __DIR__."/../AccesoDatos/conn.php";
+
+        $dbh = $this->cid;
  
         try {
             $stmt = $dbh->prepare("INSERT INTO ph_grupos (COD_GRUPO, DESC_GRUPO) VALUES (?, ?)");
@@ -38,7 +46,8 @@ class Grupo
 
     public function eliminarGrupo($codGrupo){
         
-        include __DIR__."/../AccesoDatos/conn.php";
+
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("DELETE FROM ph_grupos WHERE COD_GRUPO = ?");
 
         $stmt->bindParam(1, $codGrupo);

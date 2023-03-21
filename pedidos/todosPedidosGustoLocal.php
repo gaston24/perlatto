@@ -16,19 +16,18 @@ if(!isset($_SESSION['username'])){
         $hasta = $_GET['hasta'];
     }
 
-
     include __DIR__."/../Class/pedidos.php";
 
     $pendientes = new Pedido();
-    $listado = $pendientes->pendientesTodos($suc,$desde, $hasta);
+    $listado = $pendientes->pedidosGustoPorLocal($desde, $hasta);
 
 ?> 
 <?php include __DIR__."/../Vista/head_0.php";   ?>
-<title>Perlatto - Pendientes</title>
+<title>Perlatto - Pedidos por gusto por local</title>
 <?php include __DIR__."/../Vista/head.php";   ?>
 
 <div class="container mt-2 mb-2">
-    
+
 <form action="#" method="get">
     <div class="form-row">
         <div class="col-md-2 mb-3">
@@ -52,19 +51,14 @@ if(!isset($_SESSION['username'])){
         </div>
     </div>
 </form>
-
     <!-- ESCRIBIR A PARTIR DE ACA -->
     <table class="table table-hover" id="todosPedidos">
         <thead>
             <tr>
                 <th scope="col">LOCAL</th>
-                <th scope="col">FECHA</th>
-                <th scope="col">NRO PEDIDO</th>
-                <th scope="col">CANT TOTAL</th>
-                <th scope="col">CANT ENTREGADA</th>
-                <th scope="col">FECHA ENTREGA</th>
-                <th scope="col">ESTADO</th>
-                <th scope="col">TACHOS</th>
+                <th scope="col">COD GUSTO</th>
+                <th scope="col">DESC GUSTO</th>
+                <th scope="col">CANT PEDIDA</th>
             </tr>
         </thead>
         <tbody>
@@ -73,14 +67,10 @@ if(!isset($_SESSION['username'])){
             foreach ($listado as $key => $value) {
             ?>    
                 <tr>
-                    <td><?=$value->NOMBRE_LOCAL;?></td>
-                    <td><?=$value->FECHA_PED;?></td>
-                    <td><a href="pendientesDetalle.php?nroPedido=<?=$value->NRO_PEDIDO;?>"><?=$value->NRO_PEDIDO;?></td>
-                    <td><?=$value->CANT_PED;?></td>
-                    <td><?=$value->CANT_ENT;?></td>
-                    <td><?=$value->FECHA_ENTREGA;?></td>
-                    <td><?=$value->DESC_ESTADO;?></td>
-                    <td><a href="tachosEnPedidos.php?nroPedido=<?=$value->NRO_PEDIDO;?>"> <i class="fas fa-trash"></i> </a></td>
+                    <td><?=$value->LOCAL;?></td>
+                    <td><?=$value->COD_GUSTO;?></td>
+                    <td><?=$value->DESC_GUSTO;?></td>
+                    <td><?=$value->CANT_PEDIDA;?></td>
                 </tr>
             <?php    
             }

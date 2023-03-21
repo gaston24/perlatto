@@ -3,11 +3,20 @@
 class Pedido 
 {
 
+    function __construct(){
+
+        require_once 'conexion.php';
+        $this->conn = new Conexion;
+        $this->cid = $this->conn->conectar();
+        
+    }
 
     public function insertarEncabezado($siguienteTalon, $nroSucurs){
-        include __DIR__."/../AccesoDatos/conn.php";
+        // include __DIR__."/../AccesoDatos/conn.php";
         date_default_timezone_set("America/Argentina/Buenos_Aires");
         
+        $dbh = $this->cid;
+
         $stmt = $dbh->prepare("INSERT INTO ph_pedidos_enc (NRO_PEDIDO, NRO_LOCAL, HORA) VALUES(?, ?, ? )");
         $hourMin = date('Hi');
         $stmt->bindParam(1, $siguienteTalon);
@@ -17,7 +26,8 @@ class Pedido
     }
 
     public function insertarDetalle($nroSucurs, $siguienteTalon, $cod, $cant, $renglon){
-        include __DIR__."/../AccesoDatos/conn.php";
+        // include __DIR__."/../AccesoDatos/conn.php";
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("INSERT INTO ph_pedidos_det (NRO_LOCAL, NRO_PEDIDO, RENGLON, COD_GUSTO, CANT_PED, CANT_PENDI) VALUES(?, ?, ?, ?, ?, ?)");
         $stmt->bindParam(1, $nroSucurs);
         $stmt->bindParam(2, $siguienteTalon);
@@ -30,7 +40,8 @@ class Pedido
 
 
     public function traerFiltrado($nroSucurs){
-        include __DIR__."/../AccesoDatos/conn.php";
+        // include __DIR__."/../AccesoDatos/conn.php";
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("SELECT * FROM ph_pedidos_enc WHERE NRO_LOCAL = ? ORDER BY FECHA_PED DESC");
         $stmt->bindParam(1, $nroSucurs);
         $stmt->setFetchMode(PDO::FETCH_OBJ);
@@ -41,8 +52,10 @@ class Pedido
     }
 
     public function historial($nroSucurs){
-        include __DIR__."/../AccesoDatos/conn.php";
-        $stmt = $dbh->prepare("SELECT A.FECHA_PED, A.TALON, A.NRO_LOCAL, A.NRO_PEDIDO, SUM(B.CANT_PED) CANT FROM ph_pedidos_enc A INNER JOIN ph_pedidos_det B ON A.NRO_LOCAL = B.NRO_LOCAL AND A.NRO_PEDIDO = B.NRO_PEDIDO WHERE A.NRO_LOCAL = $nroSucurs GROUP BY A.FECHA_PED, A.TALON, A.NRO_LOCAL, A.NRO_PEDIDO ORDER BY FECHA_PED DESC");
+        // include __DIR__."/../AccesoDatos/conn.php";
+        $dbh = $this->cid;
+        $stmt = $dbh->prepare("SELECT A.FECHA_PED, A.TALON, A.NRO_LOCAL, A.NRO_PEDIDO, SUM(B.CANT_PED) CANT FROM ph_pedidos_enc A INNER JOIN ph_pedidos_det B ON A.NRO_LOCAL = B.NRO_LOCAL AND A.NRO_PEDIDO = B.NRO_PEDIDO WHERE A.NRO_LOCAL = :nroSucurs GROUP BY A.FECHA_PED, A.TALON, A.NRO_LOCAL, A.NRO_PEDIDO ORDER BY FECHA_PED DESC");
+
         $stmt->bindValue(':nroSucurs', $nroSucurs);
         $stmt->setFetchMode(PDO::FETCH_OBJ);
         $stmt->execute();
@@ -52,11 +65,12 @@ class Pedido
     }
 
 
-    public function pendientesTodos($nroSucurs){
-        include __DIR__."/../AccesoDatos/conn.php";
+    public function pendientesTodos($nroSucurs,$desde,$hasta){
+        // include __DIR__."/../AccesoDatos/conn.php";
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("SELECT A.NRO_LOCAL, C.LOCAL NOMBRE_LOCAL, A.FECHA_PED, CAST(A.FECHA_PED+2 AS DATE) FECHA_ENTREGA, A.TALON, A.NRO_LOCAL, A.NRO_PEDIDO, SUM(B.CANT_PED) CANT_PED, SUM(B.CANT_ENT) CANT_ENT, D.DESC_ESTADO
         FROM ph_pedidos_enc A INNER JOIN ph_pedidos_det B ON A.NRO_LOCAL = B.NRO_LOCAL AND A.NRO_PEDIDO = B.NRO_PEDIDO INNER JOIN ph_locales C ON A.NRO_LOCAL = C.NRO_LOCAL
-        INNER JOIN ph_estado_pedidos D ON A.ESTADO = D.ID_ESTADO GROUP BY A.FECHA_PED, A.TALON, A.NRO_LOCAL, A.NRO_PEDIDO ORDER BY FECHA_PED ;");
+        INNER JOIN ph_estado_pedidos D ON A.ESTADO = D.ID_ESTADO    where FECHA_PED between '{$desde}' and '{$hasta}' GROUP BY A.FECHA_PED, A.TALON, A.NRO_LOCAL, A.NRO_PEDIDO ORDER BY FECHA_PED ;");
         $stmt->setFetchMode(PDO::FETCH_OBJ);
         $stmt->execute();
         $dato = $stmt->fetchAll(); 
@@ -65,7 +79,8 @@ class Pedido
     }
 
     public function pendientesAbiertos($nroSucurs){
-        include __DIR__."/../AccesoDatos/conn.php";
+        // include __DIR__."/../AccesoDatos/conn.php";
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("SELECT A.NRO_LOCAL, C.LOCAL NOMBRE_LOCAL, A.FECHA_PED, CAST(A.FECHA_PED+2 AS DATE) FECHA_ENTREGA, A.TALON, A.NRO_LOCAL, A.NRO_PEDIDO, SUM(B.CANT_PED) CANT_PED, SUM(B.CANT_ENT) CANT_ENT, D.DESC_ESTADO
         FROM ph_pedidos_enc A INNER JOIN ph_pedidos_det B ON A.NRO_LOCAL = B.NRO_LOCAL AND A.NRO_PEDIDO = B.NRO_PEDIDO INNER JOIN ph_locales C ON A.NRO_LOCAL = C.NRO_LOCAL
         INNER JOIN ph_estado_pedidos D ON A.ESTADO = D.ID_ESTADO WHERE A.ESTADO IN (1, 2) GROUP BY A.FECHA_PED, A.TALON, A.NRO_LOCAL, A.NRO_PEDIDO ORDER BY FECHA_PED");
@@ -79,7 +94,8 @@ class Pedido
 
 
     public function pendientesGustos(){
-        include __DIR__."/../AccesoDatos/conn.php";
+        // include __DIR__."/../AccesoDatos/conn.php";
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("SELECT  
         B.COD_GUSTO, D.DESC_GUSTO, SUM(B.CANT_PED) CANT_PED, SUM(B.CANT_ENT) CANT_ENT, SUM(B.CANT_PENDI) CANT_PENDI
         FROM ph_pedidos_enc A 
@@ -100,7 +116,8 @@ class Pedido
 
 
     public function pendientesTraerUno($nroPedido){
-        include __DIR__."/../AccesoDatos/conn.php";
+        // include __DIR__."/../AccesoDatos/conn.php";
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("SELECT C.LOCAL NOMBRE_LOCAL, D.FECHA_PED, CAST(D.FECHA_PED+2 AS DATE) FECHA_ENTREGA, A.NRO_PEDIDO, A.COD_GUSTO, A.CANT_PED, A.CANT_ENT, A.CANT_PENDI, B.DESC_GUSTO
         FROM ph_pedidos_det A 
         INNER JOIN ph_gustos B ON A.COD_GUSTO = B.COD_GUSTO 
@@ -117,7 +134,8 @@ class Pedido
     }
 
     public function traerDetalleFiltrado($nroSucurs, $nroPedido){
-        include __DIR__."/../AccesoDatos/conn.php";
+        // include __DIR__."/../AccesoDatos/conn.php";
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("SELECT A.NRO_LOCAL, A.NRO_PEDIDO, A.COD_GUSTO, B.DESC_GUSTO, A.CANT_PED, A.CANT_ENT FROM ph_pedidos_det A INNER JOIN ph_gustos B ON A.COD_GUSTO = B.COD_GUSTO WHERE A.NRO_LOCAL = ? AND A.NRO_PEDIDO = ?");
         $stmt->bindParam(1, $nroSucurs);
         $stmt->bindParam(2, $nroPedido);
@@ -129,7 +147,8 @@ class Pedido
     }
 
     public function buscarEstado($nroPedido){
-        include __DIR__."/../AccesoDatos/conn.php";
+        // include __DIR__."/../AccesoDatos/conn.php";
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("SELECT ESTADO FROM ph_pedidos_enc WHERE NRO_PEDIDO = ?");
         $stmt->bindParam(1, $nroPedido);
         $stmt->execute();
@@ -138,7 +157,8 @@ class Pedido
     }
 
     public function modificarEstado($nroPedido, $estado){
-        include __DIR__."/../AccesoDatos/conn.php";
+        // include __DIR__."/../AccesoDatos/conn.php";
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("UPDATE ph_pedidos_enc SET ESTADO = ? WHERE NRO_PEDIDO = ?");
         $stmt->bindParam(1, $estado);
         $stmt->bindParam(2, $nroPedido);
@@ -146,14 +166,16 @@ class Pedido
     }
 
     public function actualizarCantidad($nroPedido){
-        include __DIR__."/../AccesoDatos/conn.php";
+        // include __DIR__."/../AccesoDatos/conn.php";
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("UPDATE ph_pedidos_det SET CANT_ENT = CANT_PED, CANT_PENDI = 0 WHERE NRO_PEDIDO =  ?");
         $stmt->bindParam(1, $nroPedido);
         $stmt->execute();
     }
 
     public function actualizarCantidades($nroPedido, $codGusto, $cant){
-        include __DIR__."/../AccesoDatos/conn.php";
+        // include __DIR__."/../AccesoDatos/conn.php";
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("UPDATE ph_pedidos_det SET CANT_ENT = ? WHERE NRO_PEDIDO =  ? AND COD_GUSTO = ?");
         $stmt->bindParam(1, $cant);
         $stmt->bindParam(2, $nroPedido);
@@ -163,7 +185,8 @@ class Pedido
 
 
     public function armarPedidoTachoAux($nroPedido, $partida, $numTacho){
-        include __DIR__."/../AccesoDatos/conn.php";
+        // include __DIR__."/../AccesoDatos/conn.php";
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("INSERT INTO ph_pedidos_tachos_armado_aux
         (NRO_LOCAL,  NRO_PEDIDO,  COD_GUSTO,   PESO,  PARTIDA,  NUM_TACHO)
         SELECT A.NRO_LOCAL, A.NRO_PEDIDO, B.COD_GUSTO, B.PESO, B.PARTIDA, B.NUM_TACHO 
@@ -181,7 +204,8 @@ class Pedido
 
 
     public function traerPedidoArmando($nroPedido){
-        include __DIR__."/../AccesoDatos/conn.php";
+        // include __DIR__."/../AccesoDatos/conn.php";
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("SELECT A.COD_GUSTO, B.DESC_GUSTO, A.PARTIDA, A.NUM_TACHO, A.PESO 
         FROM ph_pedidos_tachos_armado_aux A
         INNER JOIN ph_gustos B
@@ -196,7 +220,8 @@ class Pedido
     }
 
     public function preConfirmarTachos($nroPedido){
-        include __DIR__."/../AccesoDatos/conn.php";
+        // include __DIR__."/../AccesoDatos/conn.php";
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("SELECT A.COD_GUSTO, B.DESC_GUSTO, CANT_PED, CANT_ENT, CANT_PENDI, CANT_TACHOS
         FROM
         (
@@ -226,7 +251,8 @@ class Pedido
     }
 
     public function actualizarCantidadesPedidoTacho($nroPedido){
-        include __DIR__."/../AccesoDatos/conn.php";
+        // include __DIR__."/../AccesoDatos/conn.php";
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("UPDATE ph_pedidos_det A
         INNER JOIN
         (
@@ -263,7 +289,8 @@ class Pedido
 
 
     public function insertarTachosPedido($nroPedido){
-        include __DIR__."/../AccesoDatos/conn.php";
+        // include __DIR__."/../AccesoDatos/conn.php";
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("INSERT INTO ph_pedidos_tachos_armado (FECHA, NRO_LOCAL, NRO_PEDIDO, COD_GUSTO, PESO, PARTIDA, NUM_TACHO)
         SELECT DATE_FORMAT(now(),'%Y/%m/%d'), NRO_LOCAL, NRO_PEDIDO, COD_GUSTO, PESO, PARTIDA, NUM_TACHO
         FROM ph_pedidos_tachos_armado_aux A
@@ -276,7 +303,8 @@ class Pedido
 
 
     public function tachosEnPedido($nroPedido){
-        include __DIR__."/../AccesoDatos/conn.php";
+        // include __DIR__."/../AccesoDatos/conn.php";
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("
         SELECT A.*, B.DESC_GUSTO FROM ph_pedidos_tachos_armado A
         INNER JOIN ph_gustos B
@@ -295,28 +323,65 @@ class Pedido
 
 
     public function pendientesOrdenados(){
-        include __DIR__."/../AccesoDatos/conn.php";
+        // include __DIR__."/../AccesoDatos/conn.php";
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("
-        SELECT COD_GUSTO, DESC_GUSTO, sum(Villa_adelina) Villa_adelina, sum(Munro) Munro, sum(Olivos) Olivos, 
-        sum(Caseros) Caseros, sum(Villa_ballester) Villa_ballester, sum(San_andres) San_andres, sum(San_martin) San_martin, 
-        sum(San_fernando) San_fernando
+        SELECT COD_GUSTO, DESC_GUSTO, 
+        sum(Villa_adelina) Villa_adelina, 
+        sum(Munro) Munro, 
+        sum(Olivos) Olivos, 
+        sum(Caseros) Caseros, 
+        sum(Villa_ballester) Villa_ballester, 
+        sum(San_andres) San_andres, 
+        sum(San_martin) San_martin, 
+        sum(San_fernando) San_fernando, 
+        sum(Santos_Lugares) Santos_Lugares, 
+        sum(Martinez) Martinez, 
+        sum(San_isidro) San_Isidro, 
+        sum(Garin) Garin, 
+        sum(Escobar) Escobar, 
+        sum(Villa_Bosch) Villa_Bosch, 
+        sum(Tigre) Tigre, 
+        sum(San_Miguel) San_Miguel, 
+        sum(Ramos_Mejia) Ramos_Mejia, 
+        sum(Moron) Moron
         FROM
         (
-        SELECT COD_GUSTO, DESC_GUSTO, CANT_PED Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 1
+        SELECT COD_GUSTO, DESC_GUSTO, CANT_PED Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 1
         UNION
-        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, CANT_PED Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 2
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, CANT_PED Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 2
         UNION
-        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, CANT_PED Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 3
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, CANT_PED Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 3
         UNION
-        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, CANT_PED Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 4
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, CANT_PED Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 4
         UNION
-        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, CANT_PED Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 5
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, CANT_PED Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 5
         UNION
-        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, CANT_PED San_andres, 0 San_martin, 0 San_fernando FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 6
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, CANT_PED San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 6
         UNION
-        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, CANT_PED San_martin, 0 San_fernando FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 7
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, CANT_PED San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 7
         UNION
-        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, CANT_PED San_fernando FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 8
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, CANT_PED San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 8
+        UNION
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, CANT_PED Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 9
+        UNION
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, CANT_PED Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 10
+        UNION
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, CANT_PED San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 11
+        UNION
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, CANT_PED Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 12
+        UNION
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, CANT_PED Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 13
+        UNION
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, CANT_PED Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 14
+        UNION
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, CANT_PED Tigre, 0 San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 15
+        UNION
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, CANT_PED San_Miguel, 0 Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 16
+        UNION
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, CANT_PED Ramos_Mejia, 0 Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 17
+        UNION
+        SELECT COD_GUSTO, DESC_GUSTO, 0 Villa_adelina, 0 Munro, 0 Olivos, 0 Caseros, 0 Villa_ballester, 0 San_andres, 0 San_martin, 0 San_fernando, 0 Santos_Lugares, 0 Martinez, 0 San_Isidro, 0 Garin, 0 Escobar, 0 Villa_Bosch, 0 Tigre, 0 San_Miguel, 0 Ramos_Mejia, CANT_PED Moron FROM PH_PEDIDOS_ABIERTOS WHERE NRO_LOCAL = 18
         )A
         group by COD_GUSTO, DESC_GUSTO;
         ");
@@ -326,6 +391,29 @@ class Pedido
         return $dato;
         
     }
+
+    public function pedidosGustoPorLocal($desde, $hasta){
+        // include __DIR__."/../AccesoDatos/conn.php";
+        $dbh = $this->cid;
+        $stmt = $dbh->prepare("
+        select a.*, b.LOCAL, c.DESC_GUSTO from
+        (
+        select a.NRO_LOCAL, COD_GUSTO, sum(CANT_PED) CANT_PEDIDA 
+        from ph_pedidos_enc a
+        inner join ph_pedidos_det b on a.NRO_LOCAL = b.NRO_LOCAL and a.NRO_PEDIDO = b.NRO_PEDIDO
+        where FECHA_PED between '{$desde}' and '{$hasta}'
+        GROUP BY a.NRO_LOCAL, COD_GUSTO
+        )a 
+        inner join ph_locales b on a.NRO_LOCAL = b.NRO_LOCAL  
+        inner join ph_gustos c on a.COD_GUSTO = c.COD_GUSTO
+        ");
+        
+        $stmt->setFetchMode(PDO::FETCH_OBJ);
+        $stmt->execute();
+        $dato = $stmt->fetchAll(); 
+        return $dato;
+
+    }    
 
 
 }

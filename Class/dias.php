@@ -3,9 +3,17 @@
 class Dia
 {
 
+    function __construct(){
+
+        require_once 'conexion.php';
+        $this->conn = new Conexion;
+        $this->cid = $this->conn->conectar();
+        
+    }
 
     public function insertarFechaEntrega($nroLocal, $lu, $ma, $mi, $ju, $vi, $sa, $do){
-        include __DIR__."/../AccesoDatos/conn.php";
+
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("INSERT INTO ph_dias_entrega 
         (NRO_LOCAL, LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO, DOMINGO)
         VALUES
@@ -24,7 +32,8 @@ class Dia
     }
 
     public function modificarFechaEntrega($nroLocal, $lu, $ma, $mi, $ju, $vi, $sa, $do){
-        include __DIR__."/../AccesoDatos/conn.php";
+
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("UPDATE ph_dias_entrega SET LUNES = ?, MARTES = ?, MIERCOLES = ?, JUEVES = ?, VIERNES = ?, SABADO = ?, DOMINGO = ? WHERE (NRO_LOCAL = ?)");
 
         $stmt->bindParam(1, $lu);
@@ -43,7 +52,7 @@ class Dia
 
     public function traerPorNumDiasEntrega($nroLocal){
 
-        include __DIR__."/../AccesoDatos/conn.php";
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("SELECT LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO, DOMINGO FROM ph_dias_entrega WHERE NRO_LOCAL = $nroLocal ");
         $stmt->setFetchMode(PDO::FETCH_OBJ);
         $stmt->execute();
@@ -55,7 +64,7 @@ class Dia
 
     public function traerProxFechaEntrega($nroLocal){
 
-        include __DIR__."/../AccesoDatos/conn.php";
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("CALL TRAER_PROX_FECHA(?)");
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $stmt->bindParam(1, $nroLocal, PDO::PARAM_INT);

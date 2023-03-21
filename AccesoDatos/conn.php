@@ -4,7 +4,7 @@
 dev = 1
 produccion = 2
 */
-$entorno = 2;
+$entorno = 1;
 
 if($entorno == 1){
 

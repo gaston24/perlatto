@@ -2,8 +2,17 @@
 
 class Local
 {
+    function __construct(){
+
+        require_once 'conexion.php';
+        $this->conn = new Conexion;
+        $this->cid = $this->conn->conectar();
+        
+    }
+
     public function insertarLocal($nroLocal, $descLocal, $direccion, $localidad, $provincia, $contacto, $telefono1, $telefono2, $email, $cuit){
-        include __DIR__."/../AccesoDatos/conn.php";
+
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("INSERT INTO ph_locales 
         (ID_USUARIO, NRO_LOCAL, LOCAL, DIRECCION, LOCALIDAD, PROVINCIA, CONTACTO, TELEFONO_1, TELEFONO_2, EMAIL, CUIT)
         VALUES
@@ -29,7 +38,8 @@ class Local
 
 
     public function modificarLocal($nroLocal, $descLocal, $direccion, $localidad, $provincia, $contacto, $telefono1, $telefono2, $email, $cuit){
-        include __DIR__."/../AccesoDatos/conn.php";
+
+        $dbh = $this->cid;
         $stmt = $dbh->prepare("UPDATE ph_locales SET LOCAL = ?, DIRECCION = ?, LOCALIDAD = ?, PROVINCIA = ?, CONTACTO = ?, TELEFONO_1 = ?, TELEFONO_2 = ?, EMAIL = ?, CUIT = ? WHERE NRO_LOCAL = ?");
 
         $stmt->bindParam(1, $descLocal);
