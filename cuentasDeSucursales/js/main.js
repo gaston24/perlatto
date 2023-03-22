@@ -25,14 +25,12 @@ const MovimientoDeSucursal = ( ) => {
                 title: "Movimiento Completado",
                 icon: "success",
                 button: "Aceptar",
-              })
-              .then(function() {
-                window.location = "listar.php?idSucursal=" + nroSucursal+"&nombreSucursal="+nombreSucursal;
             })
-            ;
-            
+            .then(function() {
+                window.location = "listar.php?idSucursal=" + nroSucursal+"&nombreSucursal="+nombreSucursal;
+            });
         } 
- 
+
 	});
 
 }
@@ -40,16 +38,16 @@ const MovimientoDeSucursal = ( ) => {
 document.querySelector("#importe").addEventListener("change", (function() {
 
     let importe = document.querySelector("#importe").value;
- 
-            importe = importe.replace(",",".");
-            importe = parseFloat(importe);
-  
-          document.getElementById('importe').value = importe.toLocaleString('de-DU', {
-              style: 'decimal',
-              maximumFractionDigits: 2,
-              minimumFractionDigits: 2
-        });
 
-     
-  }))
+    importe = importe.replace(",",".");
+    importe = parseFloat(importe);
+
+    document.getElementById('importe').value = importe.toLocaleString('de-DU', {
+        style: 'decimal',
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2
+    });
+
+
+}))
 

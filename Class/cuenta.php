@@ -47,7 +47,6 @@ class Cuenta
             $datos = $stmt->fetchAll(); 
             return $datos;
 
-
         }catch (\Throwable $th) {
 
             return $th;
