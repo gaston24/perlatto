@@ -56,6 +56,24 @@ class Local
         $stmt->execute();
     }
 
+    public function traerLocales(){
+        $dbh = $this->cid;
+        $stmt = $dbh->prepare(" SELECT * FROM ph_locales ");
+        
+        try {
+
+            $stmt->execute();
+            $datos = $stmt->fetchAll(); 
+            return $datos;
+
+
+        }catch (\Throwable $th) {
+
+            return $th;
+
+        }
+    }
+
 
 
 
