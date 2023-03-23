@@ -7,13 +7,13 @@ class Local
         require_once 'conexion.php';
         $this->conn = new Conexion;
         $this->cid = $this->conn->conectar();
+        $this->dbh = $this->cid;
         
     }
 
     public function insertarLocal($nroLocal, $descLocal, $direccion, $localidad, $provincia, $contacto, $telefono1, $telefono2, $email, $cuit){
 
-        $dbh = $this->cid;
-        $stmt = $dbh->prepare("INSERT INTO ph_locales 
+        $stmt = $this->dbh->prepare("INSERT INTO ph_locales 
         (ID_USUARIO, NRO_LOCAL, LOCAL, DIRECCION, LOCALIDAD, PROVINCIA, CONTACTO, TELEFONO_1, TELEFONO_2, EMAIL, CUIT)
         VALUES
         ((SELECT ID_USUARIO FROM ph_usuarios WHERE NRO_LOCAL = ?), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
@@ -40,7 +40,7 @@ class Local
     public function modificarLocal($nroLocal, $descLocal, $direccion, $localidad, $provincia, $contacto, $telefono1, $telefono2, $email, $cuit){
 
         $dbh = $this->cid;
-        $stmt = $dbh->prepare("UPDATE ph_locales SET LOCAL = ?, DIRECCION = ?, LOCALIDAD = ?, PROVINCIA = ?, CONTACTO = ?, TELEFONO_1 = ?, TELEFONO_2 = ?, EMAIL = ?, CUIT = ? WHERE NRO_LOCAL = ?");
+        $stmt = $this->dbh->prepare("UPDATE ph_locales SET LOCAL = ?, DIRECCION = ?, LOCALIDAD = ?, PROVINCIA = ?, CONTACTO = ?, TELEFONO_1 = ?, TELEFONO_2 = ?, EMAIL = ?, CUIT = ? WHERE NRO_LOCAL = ?");
 
         $stmt->bindParam(1, $descLocal);
         $stmt->bindParam(2, $direccion);

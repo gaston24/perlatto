@@ -8,14 +8,13 @@ class Grupo
         require_once 'conexion.php';
         $this->conn = new Conexion;
         $this->cid = $this->conn->conectar();
+        $this->dbh = $this->cid;
         
     }
 
     public function traerTodos(){
 
-
-        $dbh = $this->cid;
-        $stmt = $dbh->prepare("SELECT * FROM ph_grupos");
+        $stmt = $this->dbh->prepare("SELECT * FROM ph_grupos");
         $stmt->setFetchMode(PDO::FETCH_OBJ);
         $stmt->execute();
         $dato = $stmt->fetchAll(); 
@@ -24,12 +23,9 @@ class Grupo
 
 
     public function insertarGrupo($codGrupo, $descGrupo){
-        
-
-        $dbh = $this->cid;
- 
+         
         try {
-            $stmt = $dbh->prepare("INSERT INTO ph_grupos (COD_GRUPO, DESC_GRUPO) VALUES (?, ?)");
+            $stmt = $this->dbh->prepare("INSERT INTO ph_grupos (COD_GRUPO, DESC_GRUPO) VALUES (?, ?)");
             $stmt->bindParam(1, $codGrupo);
             $stmt->bindParam(2, $descGrupo);
             $stmt->execute();
@@ -45,10 +41,8 @@ class Grupo
 
 
     public function eliminarGrupo($codGrupo){
-        
 
-        $dbh = $this->cid;
-        $stmt = $dbh->prepare("DELETE FROM ph_grupos WHERE COD_GRUPO = ?");
+        $stmt = $this->dbh->prepare("DELETE FROM ph_grupos WHERE COD_GRUPO = ?");
 
         $stmt->bindParam(1, $codGrupo);
         

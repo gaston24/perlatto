@@ -8,13 +8,13 @@ class Dia
         require_once 'conexion.php';
         $this->conn = new Conexion;
         $this->cid = $this->conn->conectar();
+        $this->dbh = $this->cid;
         
     }
 
     public function insertarFechaEntrega($nroLocal, $lu, $ma, $mi, $ju, $vi, $sa, $do){
 
-        $dbh = $this->cid;
-        $stmt = $dbh->prepare("INSERT INTO ph_dias_entrega 
+        $stmt = $this->dbh->prepare("INSERT INTO ph_dias_entrega 
         (NRO_LOCAL, LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO, DOMINGO)
         VALUES
         (?, ?, ?, ?, ?, ?, ?, ?);");
@@ -29,12 +29,12 @@ class Dia
         $stmt->bindParam(8, $do);
         
         $stmt->execute();
+
     }
 
     public function modificarFechaEntrega($nroLocal, $lu, $ma, $mi, $ju, $vi, $sa, $do){
 
-        $dbh = $this->cid;
-        $stmt = $dbh->prepare("UPDATE ph_dias_entrega SET LUNES = ?, MARTES = ?, MIERCOLES = ?, JUEVES = ?, VIERNES = ?, SABADO = ?, DOMINGO = ? WHERE (NRO_LOCAL = ?)");
+        $stmt = $this->dbh->prepare("UPDATE ph_dias_entrega SET LUNES = ?, MARTES = ?, MIERCOLES = ?, JUEVES = ?, VIERNES = ?, SABADO = ?, DOMINGO = ? WHERE (NRO_LOCAL = ?)");
 
         $stmt->bindParam(1, $lu);
         $stmt->bindParam(2, $ma);
@@ -51,9 +51,8 @@ class Dia
 
 
     public function traerPorNumDiasEntrega($nroLocal){
-
-        $dbh = $this->cid;
-        $stmt = $dbh->prepare("SELECT LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO, DOMINGO FROM ph_dias_entrega WHERE NRO_LOCAL = $nroLocal ");
+ 
+        $stmt = $this->dbh->prepare("SELECT LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO, DOMINGO FROM ph_dias_entrega WHERE NRO_LOCAL = $nroLocal ");
         $stmt->setFetchMode(PDO::FETCH_OBJ);
         $stmt->execute();
         $dato = $stmt->fetchAll(); 
@@ -64,8 +63,7 @@ class Dia
 
     public function traerProxFechaEntrega($nroLocal){
 
-        $dbh = $this->cid;
-        $stmt = $dbh->prepare("CALL TRAER_PROX_FECHA(?)");
+        $stmt = $this->dbh->prepare("CALL TRAER_PROX_FECHA(?)");
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $stmt->bindParam(1, $nroLocal, PDO::PARAM_INT);
         $stmt->execute();
