@@ -20,7 +20,7 @@ if(!isset($_SESSION['username'])){
     include __DIR__."/../Class/pedidos.php";
 
     $pendientes = new Pedido();
-    $listado = $pendientes->pendientesTodos($suc,$desde, $hasta);
+    $listado = $pendientes->pendientesTodos($suc, $desde, $hasta);
 
 ?> 
 <?php include __DIR__."/../Vista/head_0.php";   ?>
@@ -53,7 +53,6 @@ if(!isset($_SESSION['username'])){
     </div>
 </form>
 
-    <!-- ESCRIBIR A PARTIR DE ACA -->
     <table class="table table-hover" id="todosPedidos">
         <thead>
             <tr>
