@@ -1,4 +1,4 @@
-const MovimientoDeSucursal = ( ) => {
+const MovimientoDeSucursal = (idTipo ) => {
     let nroSucursal = document.querySelector("#nroSucursal").value;
     let optionSucursal = document.querySelector("#nroSucursal");
     let nombreSucursal = optionSucursal.options[optionSucursal.selectedIndex].text;
@@ -17,7 +17,8 @@ const MovimientoDeSucursal = ( ) => {
             nroSucursal: nroSucursal,
             tipoDeMovimiento:tipoDeMovimiento,
             importe:importe,
-            observacion:observacion
+            observacion:observacion,
+            franquiciaFabrica:idTipo
         },
 
 		success: function(data) {
@@ -27,7 +28,7 @@ const MovimientoDeSucursal = ( ) => {
                 button: "Aceptar",
             })
             .then(function() {
-                window.location = "listar.php?idSucursal=" + nroSucursal+"&nombreSucursal="+nombreSucursal;
+                window.location = "listar.php?idSucursal=" + nroSucursal+"&nombreSucursal="+nombreSucursal+"&idTipo="+idTipo;
             });
         } 
 

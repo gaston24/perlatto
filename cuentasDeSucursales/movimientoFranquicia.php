@@ -1,7 +1,8 @@
 <?php 
 
 session_start(); 
-if(!isset($_SESSION['username'])){
+
+if(!isset($_SESSION['username']) || $_SESSION['username'] != "ADMINISTRADOR"){
 	header("Location:login.php");
 }else{
 
@@ -27,8 +28,13 @@ if(!isset($_SESSION['username'])){
     <div class="row">
         <div class="col" style="margin-bottom: 5rem;"  id="a"></div>
     </div>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col"><h3>Movimiento De Franquicia</h3></div>
+        <div class="col"><a href="nuevaEntrada.php?tipoMovimiento=1"><button>Agregar Movimiento</button></a></div>
+    </div>
     <!-- ESCRIBIR A PARTIR DE ACA -->
-    <table class="table table-hover" id="pendientes">
+    <table class="table table-striped table-bordered" id="pendientes">
         <thead>
             <tr>
             <th scope="col">NUMERO DE SUCURSAL</th>
@@ -46,15 +52,18 @@ if(!isset($_SESSION['username'])){
             ?>    
             <tr>
                 <td style="text-align:left"><?=$value['ID_LOCAL'];?></td>
-                <td><a href="listar.php?idSucursal=<?= $value['ID_LOCAL'] ?>&nombreSucursal=<?=$value['LOCAL'] ?>"><?=$value['LOCAL'];?></a></td>
+                <td><a href="listar.php?idSucursal=<?= $value['ID_LOCAL'] ?>&nombreSucursal=<?=$value['LOCAL'] ?>&idTipo=1"><?=$value['LOCAL'];?></a></td>
 
                 <?php 
-                    $listado = $cuentas->getAll($value['ID_LOCAL']);
+                    $listado = $cuentas->getFranquicia($value['ID_LOCAL']);
 
                     $ultimoMovimiento = 0;
 
                     foreach ($listado as $e ) {
-                        if($e['tipo_movimiento'] == "entrada" ){
+                        
+                        $newArray = explode("_",$e['tipo_movimiento']);
+                        
+                        if($newArray[0] == "entrada" ){
                         $total += $e['importe'];
                         }else if ($e['tipo_movimiento'] == "salida" ){
                         $total -= $e['importe'];

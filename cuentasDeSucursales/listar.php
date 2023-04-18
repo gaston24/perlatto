@@ -10,7 +10,7 @@ if(!isset($_SESSION['username'])){
 
   include __DIR__."/../Class/cuenta.php";
   $cuentas = new Cuenta();
-  $listado = $cuentas->getAll($_GET['idSucursal']);
+  $listado = $cuentas->getDetalle($_GET['idSucursal'],$_GET['idTipo']);
 
 ?> 
 <?php include __DIR__."/../Vista/head_0.php";   ?>
@@ -23,7 +23,7 @@ if(!isset($_SESSION['username'])){
     <div class="col" style="margin-bottom: 5rem;"  id="a"><h2>Resumen  de  cuenta  sucursal : <?= $_GET['nombreSucursal']?> (<?= $_GET['idSucursal'] ?>)</h2></div>
   </div>
   <!-- ESCRIBIR A PARTIR DE ACA -->
-  <table class="table table-hover" id="pendientes">
+  <table id="tabla_locales" class="table table-striped table-bordered" style="width:100%" id="pendientes">
     <thead>
       <tr>
       <th scope="col">FECHA</th>
@@ -49,8 +49,8 @@ if(!isset($_SESSION['username'])){
       </tbody>
       <tfoot>
         <tr>
-          <td>TOTAL</td>
           <td></td>
+          <td>TOTAL</td>
           <td id= "total" style="text-align:right"></td>
           <td></td>
         </tr>
@@ -89,10 +89,11 @@ if(!isset($_SESSION['username'])){
     importes.forEach(element => {
 
       movimiento = element.parentElement.childNodes[3].textContent;
+      var movimientoSplit = movimiento.split('_');
 
-      if(movimiento == "entrada"){
+      if(movimientoSplit[0] == "entrada"){
         total += parseFloat(element.textContent);
-      }else if( movimiento == "salida"){
+      }else if( movimientoSplit[0] == "salida"){
         total -= parseFloat(element.textContent);
       }        
 
