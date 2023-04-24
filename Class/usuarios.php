@@ -4,7 +4,7 @@ class Usuarios
 {
     function __construct(){
 
-        require_once 'conexion.php';
+        require_once (__DIR__.'/conexion.php');
         $this->conn = new Conexion;
         $this->cid = $this->conn->conectar();
         

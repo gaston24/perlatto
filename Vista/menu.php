@@ -89,7 +89,7 @@ Cuentas De Sucursales
 <a class="dropdown-item" href="<?=ruta;?>cuentasDeSucursales/resumenDeCuentas.php">Resumen cuentas</a>
 </div>
 </li> -->
-
+<?php if($_SESSION['username'] == "SUPER_ADMIN") {?>
 <li class="nav-item dropdown">
 <a class="nav-link dropdown-toggle ml-3" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 Movimientos
@@ -100,7 +100,7 @@ Movimientos
 <a class="dropdown-item" href="<?=ruta;?>cuentasDeSucursales/movimientoFranquicia.php">FRANQUICIA</a>
 </div>
 </li>
-
+<?php } ?>
 
 <?php } ?>
 

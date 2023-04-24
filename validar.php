@@ -18,6 +18,7 @@ if( $user->login($u, $p) == 1 ){
         $_SESSION['nroSuc'] = $value->NRO_LOCAL;
         $_SESSION['tipo'] = $value->TIPO;
     }
+    
     header('Location: inicio.php');
 }else{
     setcookie("error", 'Usuario o contraseña invalida');
