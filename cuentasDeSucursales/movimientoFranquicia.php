@@ -2,7 +2,7 @@
 
 session_start(); 
 
-if(!isset($_SESSION['username']) || $_SESSION['username'] != "ADMINISTRADOR"){
+if(!isset($_SESSION['username']) || $_SESSION['tipo'] != "ADMIN"){
 	header("Location:login.php");
 }else{
 
@@ -65,7 +65,7 @@ if(!isset($_SESSION['username']) || $_SESSION['username'] != "ADMINISTRADOR"){
                         
                         if($newArray[0] == "entrada" ){
                         $total += $e['importe'];
-                        }else if ($e['tipo_movimiento'] == "salida" ){
+                        }else if ($newArray[0] == "salida" ){
                         $total -= $e['importe'];
                         }
                         $ultimoMovimiento = $e['created_at'];    

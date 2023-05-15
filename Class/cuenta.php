@@ -11,17 +11,20 @@ class Cuenta
         
     }
 
-    public function insertarMovimiento ($nroSucursal,$tipoMovimiento,$importe,$observacion,$idTipo) {
+    public function insertarMovimiento ($nroSucursal,$tipoMovimiento,$importe,$observacion,$idTipo,$cantidadTachos,$cantidadKilos) {
+
                 
         $dbh = $this->cid;
 
-        $stmt = $dbh->prepare("INSERT INTO ph_movimiento_cuenta ( nro_sucursal, tipo_movimiento, importe,observaciones,franquicia_fabrica) VALUES (?,?,?,?,?);");
+        $stmt = $dbh->prepare("INSERT INTO ph_movimiento_cuenta ( nro_sucursal, tipo_movimiento, importe,observaciones,franquicia_fabrica,cantidad_tachos,cantidad_kilos) VALUES (?,?,?,?,?,?,?);");
         $hourMin = date('Hi');
         $stmt->bindParam(1, $nroSucursal);
         $stmt->bindParam(2, $tipoMovimiento);
         $stmt->bindParam(3, $importe);
         $stmt->bindParam(4, $observacion);
         $stmt->bindParam(5, $idTipo);
+        $stmt->bindParam(6, $cantidadTachos);
+        $stmt->bindParam(7, $cantidadKilos);
 
         try {
 

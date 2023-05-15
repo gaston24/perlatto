@@ -70,7 +70,8 @@ if(!isset($_SESSION['username'])){
                     <?php 
                         }else {
                     ?>
-                            <select id="tipoMovimiento">
+                            <select id="tipoMovimiento" onchange="comprobarTacho()">
+                                <option value="salida_tachos" >salida Tachos de Helado</option>
                                 <option value="salida_bolsas_grandes" >salida Bolsas Grandes</option>
                                 <option value="salida_bolsas_chicas" >Salida Bolsas Chicas</option>
                                 <option value="salida_chombas" >Salida Chombas</option>
@@ -92,6 +93,34 @@ if(!isset($_SESSION['username'])){
         <div class="col-3"></div>
     </div>
 
+    <div class="row" id="divCantidadTachos">
+        <div class="col-3"></div>
+
+        <div class="col-6" >
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label for="validationDefault01"><h5>Cantidad de Tachos</h5></label>
+                    <input type="text" class="form-control" id="cantidadTachos" >
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-3"></div>
+    </div>
+    <div class="row" id="divCantidadKilos" >
+        <div class="col-3"></div>
+
+        <div class="col-6">
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label for="validationDefault01"><h5>Cantidad de Kilos</h5></label>
+                    <input type="text" class="form-control" id="cantidadKilos" >
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-3"></div>
+    </div>
     <div class="row">
         <div class="col-3"></div>
 

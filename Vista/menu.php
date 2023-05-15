@@ -42,7 +42,7 @@ Usuarios
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 <a class="dropdown-item" href="<?=ruta;?>usuarios/usuarioNuevo.php">Alta</a>
-<a class="dropdown-item" href="<?=ruta;?>usuarios/usuarioListar.php" >Ver / Modificar / Elminar</a>
+<a class="dropdown-item" href="<?=ruta;?>usuarios/usuarioListar.php" >Ver / Modificar / Eliminar</a>
 </div>
 </li>
 
@@ -52,7 +52,7 @@ Gustos
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 <a class="dropdown-item" href="<?=ruta;?>gustos/gustoNuevo.php">Alta Gusto</a>
-<a class="dropdown-item" href="<?=ruta;?>gustos/gustoListar.php">Ver / Modificar / Elminar</a>
+<a class="dropdown-item" href="<?=ruta;?>gustos/gustoListar.php">Ver / Modificar / Eliminar</a>
 </div>
 </li>
 
@@ -96,8 +96,18 @@ Movimientos
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
-<a class="dropdown-item" href="<?=ruta;?>cuentasDeSucursales/movimientoFabrica.php">FABRICA</a>
-<a class="dropdown-item" href="<?=ruta;?>cuentasDeSucursales/movimientoFranquicia.php">FRANQUICIA</a>
+<a class="dropdown-item" href="<?=ruta;?>cuentasDeSucursales/movimientoFabrica.php">Fabrica</a>
+<a class="dropdown-item" href="<?=ruta;?>cuentasDeSucursales/movimientoFranquicia.php">Franquicia</a>
+</div>
+</li>
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle ml-3" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+Maestro De Valores
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+    <a class="dropdown-item" href="<?=ruta;?>cuentasDeSucursales/agregarValores.php">Alta Valores</a>
+<a class="dropdown-item" href="<?=ruta;?>cuentasDeSucursales/listarValores.php">Ver / Modificar / Eliminar</a>
 </div>
 </li>
 <?php } ?>
