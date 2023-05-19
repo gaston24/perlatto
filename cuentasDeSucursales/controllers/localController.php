@@ -3,6 +3,6 @@ include __DIR__."/../../Class/locales.php";
 
 $cuenta = new Local();
 
-$result = $cuenta->traerLocales();
+$result = $cuenta->traerNombreLocales();
 
-print_r ($result);
+echo  json_encode($result);

@@ -10,7 +10,10 @@ if(!isset($_SESSION['username'])){
 
   include __DIR__."/../Class/cuenta.php";
   $cuentas = new Cuenta();
-  $listado = $cuentas->getDetalle($_GET['idSucursal'],$_GET['idTipo']);
+
+
+  
+  $listado = $cuentas->getDetalleTachos($_GET['idSucursal'], $_GET['fecha'],$_GET['tipoMov'] );
 
 ?> 
 <?php include __DIR__."/../Vista/head_0.php";   ?>
@@ -20,7 +23,7 @@ if(!isset($_SESSION['username'])){
 <div class="container mt-2 mb-2" style="background-color:white">
 
   <div class="row">
-    <div class="col" style="margin-bottom: 5rem;"  id="a"><h2>Resumen  de  cuenta  sucursal : <?= $_GET['nombreSucursal']?> (<?= $_GET['idSucursal'] ?>)</h2></div>
+    <div class="col" style="margin-bottom: 5rem;"  id="a"><h2>Resumen  de  Tachos de Helado de sucursal : <?= $_GET['nombreSucursal']?> (<?= $_GET['idSucursal'] ?>)</h2></div>
   </div>
   <!-- ESCRIBIR A PARTIR DE ACA -->
   <table id="tabla_locales" class="table table-striped table-bordered" style="width:100%" id="pendientes">
@@ -28,24 +31,41 @@ if(!isset($_SESSION['username'])){
       <tr>
       <th scope="col">FECHA</th>
       <th scope="col">TIPO DE MOVIMIENTO</th>
-      <th scope="col">IMPORTE</th>
+      <th scope="col">CANTIDAD</th>
+      <?php if($_GET['tipoMov'] == "salida_tachos"){ ?>
+      <th scope="col">CANTIDAD DE KILOS</th>
+      <?php }else{?>
+        <th scope="col">IMPORTE</th>
+      <?php }?>
       <th scope="col">OBSERVACIONES</th>
       </tr>
     </thead>
     <tbody>
       <?php 
         foreach ($listado as $key => $value) {
+          $importe = (int)$value['cantidad'] * (float)$value['valor'];
           $fecha = strtotime( $value['created_at'] );
           $fecha = getDate($fecha);
           $fecha = $fecha['mday']."/".$fecha['mon']."/".$fecha['year'];
-          $importe = (float)$value['cantidad'] * (float)$value['valor'];
+          $tipoMovimiento =  explode("_",$_GET['tipoMov']);
+          $titulo = ""; 
+          foreach ($tipoMovimiento  as $palabra) {
+            $titulo .= strtoupper($palabra)." ";
+          }
+     
           
       ?>    
 
       <tr>
         <td><?php echo $fecha?></td>
-        <td style="text-align:left"><?=$value['tipo_movimiento'];?></td>
-        <td id="importe" style="text-align:right"><?=$importe;?></td>
+        <td style="text-align:left"><?= $titulo; ?></td>
+        <td style="text-align:left"><?=$value['cantidad'];?></td>
+        <?php if($_GET['tipoMov'] == "salida_tachos"){ ?>
+          <td style="text-align:left"><?=$value['cantidad_kilos'];?></td>
+        <?php }else{?>
+          <td id="importe" style="text-align:right"><?=$importe;?></td>
+        <?php }?>
+
         <td style="text-align:left"><?=$value['observaciones'];?></td>
       </tr>
       <?php    
@@ -56,6 +76,8 @@ if(!isset($_SESSION['username'])){
         <tr>
           <td></td>
           <td>TOTAL</td>
+          <td></td>
+          <td></td>
           <td id= "total" style="text-align:right"></td>
           <td></td>
         </tr>

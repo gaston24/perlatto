@@ -73,6 +73,42 @@ class Local
 
         }
     }
+    public function traerTiposDeMovimientos () {
+
+        $dbh = $this->cid;
+        $stmt = $dbh->prepare("SELECT * FROM ph_maestro_de_valores");
+        
+        try {
+
+            $stmt->execute();
+            $datos = $stmt->fetchAll(); 
+            return $datos;
+
+
+        }catch (\Throwable $th) {
+
+            return $th;
+
+        }
+    }
+    public function traerNombreLocales () {
+
+        $dbh = $this->cid;
+        $stmt = $dbh->prepare(" SELECT LOCAL FROM ph_locales ");
+        
+        try {
+
+            $stmt->execute();
+            $datos = $stmt->fetchAll(); 
+            return $datos;
+
+
+        }catch (\Throwable $th) {
+
+            return $th;
+
+        }
+    }
 
 
 

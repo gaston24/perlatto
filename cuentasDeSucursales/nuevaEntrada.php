@@ -13,6 +13,7 @@ if(!isset($_SESSION['username'])){
     $local = new Local();
 
     $todosLosLocales = $local->traerLocales();
+    $tiposDeMovimiento = $local->traerTiposDeMovimientos();
 
 ?>
 
@@ -71,16 +72,14 @@ if(!isset($_SESSION['username'])){
                         }else {
                     ?>
                             <select id="tipoMovimiento" onchange="comprobarTacho()">
-                                <option value="salida_tachos" >salida Tachos de Helado</option>
-                                <option value="salida_bolsas_grandes" >salida Bolsas Grandes</option>
-                                <option value="salida_bolsas_chicas" >Salida Bolsas Chicas</option>
-                                <option value="salida_chombas" >Salida Chombas</option>
-                                <option value="salida_delantal" >Salida Delantales</option>
-                                <option value="salida_termicos" >Salida Termicos</option>
-                                <option value="salida_gorras" >Salida Gorras</option>
-                                <option value="salida_salsas" >Salida Salsas</option>
-                                <option value="salida_cucuruchos" >Salida Cucuruchos</option>
-                                <option value="salida_cintas" >Salida Cintas</option>
+
+                                <?php 
+                                    foreach ($tiposDeMovimiento as $value) {
+                                ?>
+                                        <option value="<?= $value['tipo_movimiento'] ?>" ><?= $value['descripcion'] ?></option>
+                                <?php   
+                                    }
+                                ?>
                             </select>   
 
                     <?php
@@ -99,7 +98,7 @@ if(!isset($_SESSION['username'])){
         <div class="col-6" >
             <div class="form-row">
                 <div class="col-md-6 mb-3">
-                    <label for="validationDefault01"><h5>Cantidad de Tachos</h5></label>
+                    <label for="validationDefault01"><h5>Cantidad De Tachos</h5></label>
                     <input type="text" class="form-control" id="cantidadTachos" >
                 </div>
             </div>
@@ -121,14 +120,14 @@ if(!isset($_SESSION['username'])){
         
         <div class="col-3"></div>
     </div>
-    <div class="row">
+    <div class="row" id="divCantidad" hidden>
         <div class="col-3"></div>
 
         <div class="col-6">
             <div class="form-row">
                 <div class="col-md-6 mb-3">
-                    <label for="validationDefault01"><h5>Importe</h5></label>
-                    <input type="text" class="form-control" id="importe" >
+                    <label for="validationDefault01"><h5>Cantidad</h5></label>
+                    <input type="text" class="form-control" id="cantidad" >
                 </div>
             </div>
         </div>
@@ -136,12 +135,26 @@ if(!isset($_SESSION['username'])){
         <div class="col-3"></div>
     </div>
     <div class="row">
+    <div class="col-3"></div>
+
+             <div class="col-6">
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label for="validationDefault01"><h5>Fecha</h5></label>
+                    <input type="date" class="form-control" id="fecha" value=<?= date("Y-m-d") ?>>
+                </div>
+            </div>
+        </div>
+        <div class="col-3"></div>
+
+    </div>
+    <div class="row">
         <div class="col-3"></div>
 
         <div class="col-6">
             <div class="form-row">
                 <div class="col-md-6 mb-3">
-                    <label for="validationDefault01"><h5>observacion</h5></label>
+                    <label for="validationDefault01"><h5>observaciones</h5></label>
                     <textarea class="form-control" id="observacion" rows="4"></textarea>
                 </div>
             </div>

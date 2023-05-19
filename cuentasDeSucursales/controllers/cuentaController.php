@@ -5,6 +5,6 @@ $cuenta = new Cuenta();
 
 $datos = $_POST;
 
-$result = $cuenta->insertarMovimiento($datos['nroSucursal'],$datos['tipoDeMovimiento'],$datos['importe'],$datos['observacion'],$datos['franquiciaFabrica'],$datos['cantidadTachos'],$datos['cantidadKilos']);
+$result = $cuenta->insertarMovimiento($datos['nroSucursal'],$datos['tipoDeMovimiento'],$datos['cantidad'],$datos['observacion'],$datos['franquiciaFabrica'],$datos['cantidadKilos'],$datos['fecha']);
 
 echo $result;

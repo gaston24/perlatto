@@ -6,7 +6,7 @@ if(!isset($_SESSION['username']) || $_SESSION['tipo'] != "ADMIN"){
 ?>
 
 <?php include __DIR__."/../Vista/head_0.php";   ?>
-<title>Ver Gustos</title>
+<title>Perlatto - Movimiento Fabrica</title>
 <?php include __DIR__."/../Vista/head.php";   ?>
 <?php 
 include __DIR__."/../Class/cuenta.php";

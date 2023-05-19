@@ -20,7 +20,7 @@ if(!isset($_SESSION['username']) || $_SESSION['tipo'] != "ADMIN"){
    
 ?> 
 <?php include __DIR__."/../Vista/head_0.php";   ?>
-    <title>Perlatto - Pendientes</title>
+    <title>Perlatto - Movimiento Franquicia</title>
 <?php include __DIR__."/../Vista/head.php";   ?>
 
 <div class="container mt-2 mb-2" style="background-color:white">
@@ -64,9 +64,9 @@ if(!isset($_SESSION['username']) || $_SESSION['tipo'] != "ADMIN"){
                         $newArray = explode("_",$e['tipo_movimiento']);
                         
                         if($newArray[0] == "entrada" ){
-                        $total += $e['importe'];
+                        $total += ((int)$e['cantidad'] * (float)$e['valor']);
                         }else if ($newArray[0] == "salida" ){
-                        $total -= $e['importe'];
+                        $total -= ((int)$e['cantidad'] * (float)$e['valor']);;
                         }
                         $ultimoMovimiento = $e['created_at'];    
                     }
