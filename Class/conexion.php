@@ -1,4 +1,3 @@
-
 <?php
 
 class Conexion{
@@ -6,7 +5,7 @@ class Conexion{
     function __construct(){
         require_once(__DIR__.'/classEnv.php');
 
-        $this->nameServer = "dev";
+        $this->nameServer = "prod";
 
         $vars = new DotEnv(__DIR__ . '/../.env');
         $this->envVars = $vars->listVars();
@@ -24,7 +23,7 @@ class Conexion{
     private function servidor($nameServer) {
         
         if($nameServer == 'prod'){
-            return array($this->host_central, $this->database,$this->user,$this->pass);
+            return array($this->host_prod, $this->database,$this->user,$this->pass);
         }
             
         if($nameServer == 'dev'){
