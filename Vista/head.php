@@ -1,8 +1,8 @@
 <meta charset="utf-8">
 <!-- <link rel="shortcut icon" href="/pedidos__dev/Imagenes/icono_perlatto.png" /> -->
-<link rel="shortcut icon" href="/Imagenes/icono_perlatto.png" />
+<link rel="shortcut icon" href=__DIR__."/../Imagenes/icono_perlatto.png" />
 <!-- BOOTSTRAP -->
-<link rel="stylesheet" href="/assets/bootstrap/bootstrap.min.css" >
+<link rel="stylesheet" href=__DIR__."/../assets/bootstrap/bootstrap.min.css" >
 <!-- <link rel="stylesheet" href="/pedidos__dev/assets/bootstrap/bootstrap.min.css" > -->
 <!--  //[PARA DATA TABLES ] -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">

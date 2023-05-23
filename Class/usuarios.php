@@ -7,7 +7,7 @@ class Usuarios
         require_once (__DIR__.'/conexion.php');
         $this->conn = new Conexion;
         $this->cid = $this->conn->conectar();
-        
+
     }
 
     public function login($a, $b){

@@ -1,7 +1,7 @@
 <?php
 
-// define(  'ruta', 'https://www.perlattohelados.com.ar/pedidos__dev/' ) ;
-@define(  ruta, 'http://localhost:8081/' ) ;
+ define(  'ruta', 'https://www.perlattohelados.com.ar/pedidos__dev/' ) ;
+// @define(  ruta, 'http://localhost:8081/' ) ;
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">

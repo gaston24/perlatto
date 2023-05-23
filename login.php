@@ -31,7 +31,7 @@ if(isset($_SESSION['username'])){
             <div class="col">
 
                 <div>
-                    <form action="validar.php" method="post">
+                    <form action="./validar.php" method="post">
                         <div class="row">
                             <div class="col-6">
                             </div>

@@ -1,5 +1,4 @@
 <?php
-
 // require($_SERVER['DOCUMENT_ROOT']."/perlatto/Class/usuarios.php"); 
 include __DIR__."/Class/usuarios.php";
 
@@ -18,9 +17,11 @@ if( $user->login($u, $p) == 1 ){
         $_SESSION['nroSuc'] = $value->NRO_LOCAL;
         $_SESSION['tipo'] = $value->TIPO;
     }
-    
-    header('Location: inicio.php');
+ 
+    header('Location:inicio.php');
+
 }else{
     setcookie("error", 'Usuario o contraseña invalida');
     header('Location: login.php');
 }
+?>
