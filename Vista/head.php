@@ -1,12 +1,14 @@
 <?php 
 
-$env = 'new';
+$env = 'pedidos__dev_new';
 $prefijo = '';
 
 if($env == 'new'){
     $prefijo = '/pedidos__dev_new';
 }else if($env == 'prod'){
     $prefijo = '/pedidos__dev';
+}else if($env == 'localhost'){
+    $prefijo = '/perlatto';
 }
 
 ?>

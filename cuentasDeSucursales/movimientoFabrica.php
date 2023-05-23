@@ -45,7 +45,7 @@ $todosLosLocales = $local->traerLocales();
 
                         ?>
                         <tr>
-                            <td><a href="listar.php?idSucursal=<?= $value['ID_LOCAL'] ?>&nombreSucursal=<?=$value['LOCAL'] ?>&idTipo=0"><?= $value['LOCAL'] ?></a></td>
+                            <td><a href="listar.php?idSucursal=<?= $value['ID_LOCAL'] ?>&nombreSucursal=<?=$value['LOCAL'] ?>&idTipo=0"><?= ucfirst($value['LOCAL']) ?></a></td>
                             
                         <?php 
                         $listado = $cuentas->getFabrica($value['ID_LOCAL']);

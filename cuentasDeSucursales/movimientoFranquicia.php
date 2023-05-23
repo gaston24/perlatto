@@ -52,7 +52,7 @@ if(!isset($_SESSION['username']) || $_SESSION['tipo'] != "ADMIN"){
             ?>    
             <tr>
                 <td style="text-align:left"><?=$value['ID_LOCAL'];?></td>
-                <td><a href="listar.php?idSucursal=<?= $value['ID_LOCAL'] ?>&nombreSucursal=<?=$value['LOCAL'] ?>&idTipo=1"><?=$value['LOCAL'];?></a></td>
+                <td><a href="listar.php?idSucursal=<?= $value['ID_LOCAL'] ?>&nombreSucursal=<?=$value['LOCAL'] ?>&idTipo=1"><?=ucfirst($value['LOCAL']);?></a></td>
 
                 <?php 
                     $listado = $cuentas->getFranquicia($value['ID_LOCAL']);

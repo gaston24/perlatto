@@ -183,7 +183,7 @@ if(!isset($_SESSION['username'])){
         <div class="col-6">
             <div class="form-row">
                 <div class="col-md-6 mb-3">
-                <button class="btn btn-primary" onClick="MovimientoDeSucursal(<?= $_GET['tipoMovimiento']?>)">Confirmar</button>
+                <button class="btn btn-primary" onClick="movimientoDeSucursal(<?= $_GET['tipoMovimiento']?>)">Confirmar</button>
                 </div>
             </div>
         </div>

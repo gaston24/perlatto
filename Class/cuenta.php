@@ -16,11 +16,11 @@ class Cuenta
 
         $dbh = $this->cid;
         if($idTipo == 0){
-            $stmt = $dbh->prepare("INSERT INTO ph_movimiento_cuenta ( nro_sucursal, tipo_movimiento, importe,observaciones,franquicia_fabrica,cantidad_kilos,created_at) VALUES (?,?,?,?,?,?,?);");
+            $stmt = $dbh->prepare("INSERT INTO ph_movimiento_cuenta ( nro_sucursal, tipo_movimiento, importe, observaciones, franquicia_fabrica, cantidad_kilos, created_at) VALUES (?,?,?,?,?,?,?);");
 
         }else{
 
-            $stmt = $dbh->prepare("INSERT INTO ph_movimiento_cuenta ( nro_sucursal, tipo_movimiento, cantidad,observaciones,franquicia_fabrica,cantidad_kilos,created_at) VALUES (?,?,?,?,?,?,?);");
+            $stmt = $dbh->prepare("INSERT INTO ph_movimiento_cuenta ( nro_sucursal, tipo_movimiento, cantidad, observaciones, franquicia_fabrica, cantidad_kilos, created_at) VALUES (?,?,?,?,?,?,?);");
         }
         $hourMin = date('Hi');
         $stmt->bindParam(1, $nroSucursal);

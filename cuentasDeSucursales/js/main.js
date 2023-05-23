@@ -1,4 +1,4 @@
-const MovimientoDeSucursal = (idTipo ) => {
+const movimientoDeSucursal = (idTipo ) => {
     let nroSucursal = document.querySelector("#nroSucursal").value;
     let optionSucursal = document.querySelector("#nroSucursal");
     let nombreSucursal = optionSucursal.options[optionSucursal.selectedIndex].text;
@@ -53,22 +53,6 @@ const MovimientoDeSucursal = (idTipo ) => {
 	});
 
 }
-
-// document.querySelector("#importe").addEventListener("change", (function() {
-
-//     let importe = document.querySelector("#importe").value;
-
-//     importe = importe.replace(",",".");
-//     importe = parseFloat(importe);
-
-//     document.getElementById('importe').value = importe.toLocaleString('de-DU', {
-//         style: 'decimal',
-//         maximumFractionDigits: 2,
-//         minimumFractionDigits: 2
-//     });
-
-
-// }))
 
 const comprobarTacho = () => {
     let selectMovimiento = document.querySelector("#tipoMovimiento");

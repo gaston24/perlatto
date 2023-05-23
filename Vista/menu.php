@@ -1,7 +1,7 @@
 <?php
 
 define(  'ruta', 'https://www.perlattohelados.com.ar/pedidos__dev_new/' ) ;
-// define(  ruta, 'http://localhost:8081/' ) ;
+// define(  'ruta', 'http://localhost/perlatto/' ) ;
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -98,6 +98,7 @@ Movimientos
 
 <a class="dropdown-item" href="<?=ruta;?>cuentasDeSucursales/movimientoFabrica.php">Fabrica</a>
 <a class="dropdown-item" href="<?=ruta;?>cuentasDeSucursales/movimientoFranquicia.php">Franquicia</a>
+<a class="dropdown-item" href="<?=ruta;?>cuentasDeSucursales/tachosPorSemana.php">Resumen de Franquicias</a>
 </div>
 </li>
 <li class="nav-item dropdown">
