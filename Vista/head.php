@@ -1,6 +1,6 @@
 <?php 
 
-$env = 'pedidos__dev_new';
+$env = 'new';
 $prefijo = '';
 
 if($env == 'new'){
