@@ -4,6 +4,7 @@ if(!isset($_SESSION['username'])){
 	header("Location:login.php");
 }else{
 
+
     include __DIR__."/../Class/usuarios.php";
     $usuario = new Usuarios();
     $sigLocal = $usuario->traerSigLocal();
@@ -15,7 +16,9 @@ if(!isset($_SESSION['username'])){
     $todosLosLocales = $local->traerLocales();
     $tiposDeMovimiento = $local->traerTiposDeMovimientos();
 
+
 ?>
+
 
 <?php include __DIR__."/../Vista/head_0.php";   ?>
 <title>Nueva Entrada</title>

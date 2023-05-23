@@ -1,7 +1,7 @@
 <?php
 
-// define(  'ruta', 'https://www.perlattohelados.com.ar/pedidos__dev/' ) ;
-@define(  ruta, 'http://localhost:8081/' ) ;
+define(  'ruta', 'https://www.perlattohelados.com.ar/pedidos__dev_new/' ) ;
+// define(  ruta, 'http://localhost:8081/' ) ;
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -89,7 +89,7 @@ Cuentas De Sucursales
 <a class="dropdown-item" href="<?=ruta;?>cuentasDeSucursales/resumenDeCuentas.php">Resumen cuentas</a>
 </div>
 </li> -->
-<?php if($_SESSION['username'] == "SUPER_ADMIN") {?>
+<?php if(in_array($_SESSION['username'], ['SUPER_ADMIN', 'SUPER ADMIN', 'super admin'])) {?>
 <li class="nav-item dropdown">
 <a class="nav-link dropdown-toggle ml-3" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 Movimientos
