@@ -15,8 +15,13 @@ class Cuenta
 
 
         $dbh = $this->cid;
+        if($idTipo == 0){
+            $stmt = $dbh->prepare("INSERT INTO ph_movimiento_cuenta ( nro_sucursal, tipo_movimiento, importe,observaciones,franquicia_fabrica,cantidad_kilos,created_at) VALUES (?,?,?,?,?,?,?);");
 
-        $stmt = $dbh->prepare("INSERT INTO ph_movimiento_cuenta ( nro_sucursal, tipo_movimiento, cantidad,observaciones,franquicia_fabrica,cantidad_kilos,created_at) VALUES (?,?,?,?,?,?,?);");
+        }else{
+
+            $stmt = $dbh->prepare("INSERT INTO ph_movimiento_cuenta ( nro_sucursal, tipo_movimiento, cantidad,observaciones,franquicia_fabrica,cantidad_kilos,created_at) VALUES (?,?,?,?,?,?,?);");
+        }
         $hourMin = date('Hi');
         $stmt->bindParam(1, $nroSucursal);
         $stmt->bindParam(2, $tipoMovimiento);
@@ -25,6 +30,7 @@ class Cuenta
         $stmt->bindParam(5, $idTipo);
         $stmt->bindParam(6, $cantidadKilos);
         $stmt->bindParam(7, $fecha);
+
 
         try {
 
@@ -125,10 +131,14 @@ class Cuenta
     public function getDetalle ($nroSucursal,$idTipo) {
                 
         $dbh = $this->cid;
-
-        $stmt = $dbh->prepare(" SELECT a.*,b.valor FROM ph_movimiento_cuenta a
-        inner join ph_maestro_de_valores b on a.tipo_movimiento = b.tipo_movimiento 
-        where nro_sucursal = $nroSucursal and franquicia_fabrica = $idTipo ");
+        if($idTipo == 0){
+            $stmt = $dbh->prepare(" SELECT a.* FROM ph_movimiento_cuenta a
+            where nro_sucursal = $nroSucursal and franquicia_fabrica = 0 ");
+        }else{
+            $stmt = $dbh->prepare(" SELECT a.*,b.valor FROM ph_movimiento_cuenta a
+            inner join ph_maestro_de_valores b on a.tipo_movimiento = b.tipo_movimiento 
+            where nro_sucursal = $nroSucursal and franquicia_fabrica = $idTipo ");
+        }
         $hourMin = date('Hi');
  
         try {

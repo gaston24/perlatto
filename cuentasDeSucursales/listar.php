@@ -38,7 +38,12 @@ if(!isset($_SESSION['username'])){
           $fecha = strtotime( $value['created_at'] );
           $fecha = getDate($fecha);
           $fecha = $fecha['mday']."/".$fecha['mon']."/".$fecha['year'];
-          $importe = (float)$value['cantidad'] * (float)$value['valor'];
+          if($_GET['idTipo'] == 0){
+            $importe = $value['importe'];
+          }else{
+            $importe = (float)$value['cantidad'] * (float)$value['valor'];
+
+          }
           
       ?>    
 

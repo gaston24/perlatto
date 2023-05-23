@@ -46,7 +46,7 @@ if(!isset($_SESSION['username']) || $_SESSION['tipo'] != "ADMIN"){
                         <tr>
                             <td hidden><?= $value['id'] ?></td>
                             <td ><?= $value['descripcion'] ?></td>
-                            <td style="text-align:right">$<?php echo number_format($value['costo'], 2, ',', '.'); ?></td>
+                            <td style="text-align:right">$<?php echo number_format($value['valor'], 2, ',', '.'); ?></td>
                             <td  style="width:30px;text-align:center" ><a href="editarValores.php?id=<?= $value['id'] ?>"><i class="fas fa-edit"></i></a></td>
                             <td style="width:30px"><button class="btn btn-danger" style="width:10px:height:10px" onclick="eliminar(this)">X</button></td>
                         </tr>

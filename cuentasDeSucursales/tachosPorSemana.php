@@ -25,15 +25,15 @@ if(!isset($_SESSION['username']) || $_SESSION['tipo'] != "ADMIN"){
     </div>
     <div class="row">
         <div class="col"></div>
-        <div class="col"><h3>Tachos por Semana</h3></div>
+        <div class="col"><h3>Cuentas Por Semana</h3></div>
         <div class="col"></div>
     </div>
     <form action="" style="margin-left:300px">
-        <div id="año">
+        <div id="anio">
         <label ><h4> Filtro por Fecha </h4></label>
             
             <label > Año :</label> 
-            <select name="año" id="selectAño">
+            <select name="anio" id="selectAño">
                 <?php 
                     for ($i=0; $i <= $yearDif ; $i++) { 
                         $y = 2023 + $i;
@@ -117,7 +117,7 @@ if(!isset($_SESSION['username']) || $_SESSION['tipo'] != "ADMIN"){
                 <td style="text-align:center"  attr-realValue ="0" ><?= (isset($semanas[1])) ? $val[$semanas[1]]['cantidad_kilos'] : 0 ?> kg (<?= (isset($semanas[1])) ? $val[$semanas[1]]['cantidad'] : 0 ?>)</td>
                 <td style="text-align:center"  attr-realValue ="0" ><?= (isset($semanas[2])) ? $val[$semanas[2]]['cantidad_kilos'] : 0 ?> kg (<?= (isset($semanas[2])) ? $val[$semanas[2]]['cantidad'] : 0 ?>)</td>
                 <td style="text-align:center"  attr-realValue ="0" ><?= (isset($semanas[3])) ? $val[$semanas[3]]['cantidad_kilos'] : 0 ?> kg (<?= (isset($semanas[3])) ? $val[$semanas[3]]['cantidad'] : 0 ?>)</td>
-                <td style="text-align:center"  attr-realValue ="0" ><?= (isset($semanas[4])) ? $val[$semanas[4]]['cantidad_kilos'] : 0 ?> kg (<?= (isset($semanas[3])) ? $val[$semanas[4]]['cantidad'] : 0 ?>)</td>
+                <td style="text-align:center"  attr-realValue ="0" ><?= (isset($semanas[4])) ? $val[$semanas[4]]['cantidad_kilos'] : 0 ?> kg (<?= (isset($semanas[4])) ? $val[$semanas[4]]['cantidad'] : 0 ?>)</td>
                 <td style="text-align:center"  attr-realValue ="0" >$<?= $total ?></td>
                 <td style="text-align:center"  attr-realValue ="0"  id="totalResto"><?= 0 ?></td>
                 <td style="text-align:center"  attr-realValue ="0"  ><?= 0 ?></td>
@@ -134,7 +134,7 @@ if(!isset($_SESSION['username']) || $_SESSION['tipo'] != "ADMIN"){
                 <td style="text-align:center" id="totalSemana2" attr-realValue = "<?= (isset($semanas[1])) ? $val[$semanas[1]]['importe'] : 0  ?>"><?= (isset($semanas[1])) ? $val[$semanas[1]]['cantidad'] : 0 ?> ($<?= (isset($semanas[1])) ? number_format($val[$semanas[1]]['importe'], 2, ',', '.') : 0 ?>)</td>
                 <td style="text-align:center" id="totalSemana3" attr-realValue = "<?= (isset($semanas[2])) ? $val[$semanas[2]]['importe'] : 0  ?>"><?= (isset($semanas[2])) ? $val[$semanas[2]]['cantidad'] : 0 ?> ($<?= (isset($semanas[2])) ? number_format($val[$semanas[2]]['importe'], 2, ',', '.')  : 0 ?>)</td>
                 <td style="text-align:center" id="totalSemana4" attr-realValue = "<?= (isset($semanas[3])) ? $val[$semanas[3]]['importe'] : 0  ?>"><?= (isset($semanas[3])) ? $val[$semanas[3]]['cantidad'] : 0 ?> ($<?= (isset($semanas[3])) ? number_format($val[$semanas[3]]['importe'], 2, ',', '.')  : 0 ?>)</td>
-                <td style="text-align:center" id="totalSemana5" attr-realValue = "<?= (isset($semanas[4])) ? $val[$semanas[4]]['importe'] : 0  ?>"><?= (isset($semanas[4])) ? $val[$semanas[4]]['cantidad'] : 0 ?> ($<?= (isset($semanas[3])) ? number_format($val[$semanas[4]]['importe'], 2, ',', '.')  : 0 ?>)</td>
+                <td style="text-align:center" id="totalSemana5" attr-realValue = "<?= (isset($semanas[4])) ? $val[$semanas[4]]['importe'] : 0  ?>"><?= (isset($semanas[4])) ? $val[$semanas[4]]['cantidad'] : 0 ?> ($<?= (isset($semanas[4])) ? number_format($val[$semanas[4]]['importe'], 2, ',', '.')  : 0 ?>)</td>
 
             </tr>
                 <?php

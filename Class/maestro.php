@@ -16,7 +16,7 @@ class Maestro
                 
         $dbh = $this->cid;
 
-        $stmt = $dbh->prepare("INSERT INTO ph_maestro_de_valores ( descripcion, costo) VALUES (?,?);");
+        $stmt = $dbh->prepare("INSERT INTO ph_maestro_de_valores ( descripcion, valor) VALUES (?,?);");
         $hourMin = date('Hi');
         $stmt->bindParam(1, $descripcion);
         $stmt->bindParam(2, $costo);

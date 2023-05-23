@@ -126,7 +126,19 @@ if(!isset($_SESSION['username'])){
         <div class="col-6">
             <div class="form-row">
                 <div class="col-md-6 mb-3">
+                    <?php if($_GET['tipoMovimiento'] == 0){
+
+                    ?>
+                    <label for="validationDefault01"><h5>Importe</h5></label>
+                    <?php 
+                    }else{
+
+                    
+                    ?>
                     <label for="validationDefault01"><h5>Cantidad</h5></label>
+                    <?php 
+                    }
+                    ?>
                     <input type="text" class="form-control" id="cantidad" >
                 </div>
             </div>
