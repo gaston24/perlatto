@@ -24,7 +24,7 @@ class Conexion{
 
     private function servidor($nameServer) {
         
-        if($nameServer == 'prod'){
+        if($nameServer == 'prod' || $nameServer == 'new'){
             return array($this->host_prod, $this->database,$this->user,$this->pass);
         }
             
