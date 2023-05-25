@@ -5,10 +5,12 @@ class Conexion{
     function __construct(){
         require_once(__DIR__.'/classEnv.php');
 
-        $this->nameServer = "prod";
-
+        
         $vars = new DotEnv(__DIR__ . '/../.env');
         $this->envVars = $vars->listVars();
+
+        // ENTORNO DE DESARROLLO
+        $this->nameServer = lowercase($this->envVars['ENV']);
         
         $this->host_prod = $this->envVars['HOST_PROD'];
         $this->database = $this->envVars['DATABASE'];
