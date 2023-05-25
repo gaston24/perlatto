@@ -12,7 +12,6 @@ class Pedido
     }
 
     public function insertarEncabezado($siguienteTalon, $nroSucurs){
-        // include __DIR__."/../AccesoDatos/conn.php";
         date_default_timezone_set("America/Argentina/Buenos_Aires");
         
         $dbh = $this->cid;
@@ -26,7 +25,6 @@ class Pedido
     }
 
     public function insertarDetalle($nroSucurs, $siguienteTalon, $cod, $cant, $renglon){
-        // include __DIR__."/../AccesoDatos/conn.php";
         $dbh = $this->cid;
         $stmt = $dbh->prepare("INSERT INTO ph_pedidos_det (NRO_LOCAL, NRO_PEDIDO, RENGLON, COD_GUSTO, CANT_PED, CANT_PENDI) VALUES(?, ?, ?, ?, ?, ?)");
         $stmt->bindParam(1, $nroSucurs);
@@ -40,7 +38,6 @@ class Pedido
 
 
     public function traerFiltrado($nroSucurs){
-        // include __DIR__."/../AccesoDatos/conn.php";
         $dbh = $this->cid;
         $stmt = $dbh->prepare("SELECT * FROM ph_pedidos_enc WHERE NRO_LOCAL = ? ORDER BY FECHA_PED DESC");
         $stmt->bindParam(1, $nroSucurs);
@@ -52,7 +49,6 @@ class Pedido
     }
 
     public function historial($nroSucurs){
-        // include __DIR__."/../AccesoDatos/conn.php";
         $dbh = $this->cid;
         $stmt = $dbh->prepare("SELECT A.FECHA_PED, A.TALON, A.NRO_LOCAL, A.NRO_PEDIDO, SUM(B.CANT_PED) CANT FROM ph_pedidos_enc A INNER JOIN ph_pedidos_det B ON A.NRO_LOCAL = B.NRO_LOCAL AND A.NRO_PEDIDO = B.NRO_PEDIDO WHERE A.NRO_LOCAL = :nroSucurs GROUP BY A.FECHA_PED, A.TALON, A.NRO_LOCAL, A.NRO_PEDIDO ORDER BY FECHA_PED DESC");
 
@@ -66,7 +62,6 @@ class Pedido
 
 
     public function pendientesTodos($nroSucurs,$desde,$hasta){
-        // include __DIR__."/../AccesoDatos/conn.php";
         $dbh = $this->cid;
         $stmt = $dbh->prepare("SELECT A.NRO_LOCAL, C.LOCAL NOMBRE_LOCAL, A.FECHA_PED, CAST(A.FECHA_PED+2 AS DATE) FECHA_ENTREGA, A.TALON, A.NRO_LOCAL, A.NRO_PEDIDO, SUM(B.CANT_PED) CANT_PED, SUM(B.CANT_ENT) CANT_ENT, D.DESC_ESTADO
         FROM ph_pedidos_enc A INNER JOIN ph_pedidos_det B ON A.NRO_LOCAL = B.NRO_LOCAL AND A.NRO_PEDIDO = B.NRO_PEDIDO INNER JOIN ph_locales C ON A.NRO_LOCAL = C.NRO_LOCAL
@@ -79,7 +74,6 @@ class Pedido
     }
 
     public function pendientesAbiertos($nroSucurs){
-        // include __DIR__."/../AccesoDatos/conn.php";
         $dbh = $this->cid;
         $stmt = $dbh->prepare("SELECT A.NRO_LOCAL, C.LOCAL NOMBRE_LOCAL, A.FECHA_PED, CAST(A.FECHA_PED+2 AS DATE) FECHA_ENTREGA, A.TALON, A.NRO_LOCAL, A.NRO_PEDIDO, SUM(B.CANT_PED) CANT_PED, SUM(B.CANT_ENT) CANT_ENT, D.DESC_ESTADO
         FROM ph_pedidos_enc A INNER JOIN ph_pedidos_det B ON A.NRO_LOCAL = B.NRO_LOCAL AND A.NRO_PEDIDO = B.NRO_PEDIDO INNER JOIN ph_locales C ON A.NRO_LOCAL = C.NRO_LOCAL
@@ -94,7 +88,6 @@ class Pedido
 
 
     public function pendientesGustos(){
-        // include __DIR__."/../AccesoDatos/conn.php";
         $dbh = $this->cid;
         $stmt = $dbh->prepare("SELECT  
         B.COD_GUSTO, D.DESC_GUSTO, SUM(B.CANT_PED) CANT_PED, SUM(B.CANT_ENT) CANT_ENT, SUM(B.CANT_PENDI) CANT_PENDI
@@ -116,7 +109,6 @@ class Pedido
 
 
     public function pendientesTraerUno($nroPedido){
-        // include __DIR__."/../AccesoDatos/conn.php";
         $dbh = $this->cid;
         $stmt = $dbh->prepare("SELECT C.LOCAL NOMBRE_LOCAL, D.FECHA_PED, CAST(D.FECHA_PED+2 AS DATE) FECHA_ENTREGA, A.NRO_PEDIDO, A.COD_GUSTO, A.CANT_PED, A.CANT_ENT, A.CANT_PENDI, B.DESC_GUSTO
         FROM ph_pedidos_det A 
@@ -134,7 +126,6 @@ class Pedido
     }
 
     public function traerDetalleFiltrado($nroSucurs, $nroPedido){
-        // include __DIR__."/../AccesoDatos/conn.php";
         $dbh = $this->cid;
         $stmt = $dbh->prepare("SELECT A.NRO_LOCAL, A.NRO_PEDIDO, A.COD_GUSTO, B.DESC_GUSTO, A.CANT_PED, A.CANT_ENT FROM ph_pedidos_det A INNER JOIN ph_gustos B ON A.COD_GUSTO = B.COD_GUSTO WHERE A.NRO_LOCAL = ? AND A.NRO_PEDIDO = ?");
         $stmt->bindParam(1, $nroSucurs);
@@ -147,7 +138,6 @@ class Pedido
     }
 
     public function buscarEstado($nroPedido){
-        // include __DIR__."/../AccesoDatos/conn.php";
         $dbh = $this->cid;
         $stmt = $dbh->prepare("SELECT ESTADO FROM ph_pedidos_enc WHERE NRO_PEDIDO = ?");
         $stmt->bindParam(1, $nroPedido);
@@ -157,7 +147,6 @@ class Pedido
     }
 
     public function modificarEstado($nroPedido, $estado){
-        // include __DIR__."/../AccesoDatos/conn.php";
         $dbh = $this->cid;
         $stmt = $dbh->prepare("UPDATE ph_pedidos_enc SET ESTADO = ? WHERE NRO_PEDIDO = ?");
         $stmt->bindParam(1, $estado);
@@ -166,7 +155,6 @@ class Pedido
     }
 
     public function actualizarCantidad($nroPedido){
-        // include __DIR__."/../AccesoDatos/conn.php";
         $dbh = $this->cid;
         $stmt = $dbh->prepare("UPDATE ph_pedidos_det SET CANT_ENT = CANT_PED, CANT_PENDI = 0 WHERE NRO_PEDIDO =  ?");
         $stmt->bindParam(1, $nroPedido);
@@ -174,7 +162,6 @@ class Pedido
     }
 
     public function actualizarCantidades($nroPedido, $codGusto, $cant){
-        // include __DIR__."/../AccesoDatos/conn.php";
         $dbh = $this->cid;
         $stmt = $dbh->prepare("UPDATE ph_pedidos_det SET CANT_ENT = ? WHERE NRO_PEDIDO =  ? AND COD_GUSTO = ?");
         $stmt->bindParam(1, $cant);
@@ -185,7 +172,6 @@ class Pedido
 
 
     public function armarPedidoTachoAux($nroPedido, $partida, $numTacho){
-        // include __DIR__."/../AccesoDatos/conn.php";
         $dbh = $this->cid;
         $stmt = $dbh->prepare("INSERT INTO ph_pedidos_tachos_armado_aux
         (NRO_LOCAL,  NRO_PEDIDO,  COD_GUSTO,   PESO,  PARTIDA,  NUM_TACHO)
@@ -204,7 +190,6 @@ class Pedido
 
 
     public function traerPedidoArmando($nroPedido){
-        // include __DIR__."/../AccesoDatos/conn.php";
         $dbh = $this->cid;
         $stmt = $dbh->prepare("SELECT A.COD_GUSTO, B.DESC_GUSTO, A.PARTIDA, A.NUM_TACHO, A.PESO 
         FROM ph_pedidos_tachos_armado_aux A
@@ -220,7 +205,6 @@ class Pedido
     }
 
     public function preConfirmarTachos($nroPedido){
-        // include __DIR__."/../AccesoDatos/conn.php";
         $dbh = $this->cid;
         $stmt = $dbh->prepare("SELECT A.COD_GUSTO, B.DESC_GUSTO, CANT_PED, CANT_ENT, CANT_PENDI, CANT_TACHOS
         FROM
@@ -251,7 +235,6 @@ class Pedido
     }
 
     public function actualizarCantidadesPedidoTacho($nroPedido){
-        // include __DIR__."/../AccesoDatos/conn.php";
         $dbh = $this->cid;
         $stmt = $dbh->prepare("UPDATE ph_pedidos_det A
         INNER JOIN
@@ -289,7 +272,6 @@ class Pedido
 
 
     public function insertarTachosPedido($nroPedido){
-        // include __DIR__."/../AccesoDatos/conn.php";
         $dbh = $this->cid;
         $stmt = $dbh->prepare("INSERT INTO ph_pedidos_tachos_armado (FECHA, NRO_LOCAL, NRO_PEDIDO, COD_GUSTO, PESO, PARTIDA, NUM_TACHO)
         SELECT DATE_FORMAT(now(),'%Y/%m/%d'), NRO_LOCAL, NRO_PEDIDO, COD_GUSTO, PESO, PARTIDA, NUM_TACHO
@@ -303,7 +285,6 @@ class Pedido
 
 
     public function tachosEnPedido($nroPedido){
-        // include __DIR__."/../AccesoDatos/conn.php";
         $dbh = $this->cid;
         $stmt = $dbh->prepare("
         SELECT A.*, B.DESC_GUSTO FROM ph_pedidos_tachos_armado A
@@ -323,7 +304,6 @@ class Pedido
 
 
     public function pendientesOrdenados(){
-        // include __DIR__."/../AccesoDatos/conn.php";
         $dbh = $this->cid;
         $stmt = $dbh->prepare("
         SELECT COD_GUSTO, DESC_GUSTO, 
@@ -393,7 +373,6 @@ class Pedido
     }
 
     public function pedidosGustoPorLocal($desde, $hasta){
-        // include __DIR__."/../AccesoDatos/conn.php";
         $dbh = $this->cid;
         $stmt = $dbh->prepare("
         select a.*, b.LOCAL, c.DESC_GUSTO from
