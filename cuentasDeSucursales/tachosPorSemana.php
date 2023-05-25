@@ -10,8 +10,30 @@ if(!isset($_SESSION['username']) || $_SESSION['tipo'] != "ADMIN"){
     $suc = $_SESSION['nroSuc'];
 
     // Se carga el siguiente archivo donde se encuentra la logica aplicada a los datos que llegan de la db
-    require_once "cargaDatosTachosPorSemana.php"
+    require_once "cargaDatosTachosPorSemana.php";
 
+    $mesSelected = isset($_GET['mes']) ? $_GET['mes'] : "";
+
+    switch ($mesSelected) {
+        case '01': $mesName = 'Enero'; break;
+        case '02': $mesName = 'Febrero'; break;
+        case '03': $mesName = 'Marzo'; break;
+        case '04': $mesName = 'Abril'; break;
+        case '05': $mesName = 'Mayo'; break;
+        case '06': $mesName = 'Junio'; break;
+        case '07': $mesName = 'Julio'; break;
+        case '08': $mesName = 'Agosto'; break;
+        case '09': $mesName = 'Septiembre'; break;
+        case '10': $mesName = 'Octubre'; break;
+        case '11': $mesName = 'Noviembre'; break;
+        case '12': $mesName = 'Diciembre'; break;
+        
+        default: $mesName = ''; break;
+    }
+
+    $anioSelected = isset($_GET['anio']) ? $_GET['anio'] : "";
+
+    if(isset($_GET['anio'])) { $mesName = '( '.$mesName.' - '.$anioSelected.' )'; }
 
 ?> 
 <?php include __DIR__."/../Vista/head_0.php";   ?>
@@ -25,7 +47,10 @@ if(!isset($_SESSION['username']) || $_SESSION['tipo'] != "ADMIN"){
     </div>
     <div class="row">
         <div class="col"></div>
-        <div class="col"><h3>Cuentas Por Semana</h3></div>
+        <div>
+            <div class="row"><h1>Cuentas Por Semana <?=$mesName;?></h1></div>
+            <br>
+        </div>
         <div class="col"></div>
     </div>
     <form action="" style="margin-left:300px">
@@ -48,19 +73,18 @@ if(!isset($_SESSION['username']) || $_SESSION['tipo'] != "ADMIN"){
             <label> Mes :</label>
            <select name="mes" id="selectMes">
                
-                    <option value="01">01</option>
-                    <option value="02">02</option>
-                    <option value="03">03</option>
-                    <option value="04">04</option>
-                    <option value="05">05</option>
-                    <option value="06">06</option>
-                    <option value="07">07</option>
-                    <option value="08">08</option>
-                    <option value="09">09</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                  
+                <option value="01" <?php if($mesSelected == '01'){echo 'selected'; }?> >01</option>
+                <option value="02" <?php if($mesSelected == '02'){echo 'selected'; }?> >02</option>
+                <option value="03" <?php if($mesSelected == '03'){echo 'selected'; }?> >03</option>
+                <option value="04" <?php if($mesSelected == '04'){echo 'selected'; }?> >04</option>
+                <option value="05" <?php if($mesSelected == '05'){echo 'selected'; }?> >05</option>
+                <option value="06" <?php if($mesSelected == '06'){echo 'selected'; }?> >06</option>
+                <option value="07" <?php if($mesSelected == '07'){echo 'selected'; }?> >07</option>
+                <option value="08" <?php if($mesSelected == '08'){echo 'selected'; }?> >08</option>
+                <option value="09" <?php if($mesSelected == '09'){echo 'selected'; }?> >09</option>
+                <option value="10" <?php if($mesSelected == '10'){echo 'selected'; }?> >10</option>
+                <option value="11" <?php if($mesSelected == '11'){echo 'selected'; }?> >11</option>
+                <option value="12" <?php if($mesSelected == '12'){echo 'selected'; }?> >12</option>
 
             </select>
             
