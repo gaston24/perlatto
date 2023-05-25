@@ -6,7 +6,9 @@ if(!isset($_SESSION['username'])){
 
     include __DIR__."/../Class/usuarios.php";
     $usuario = new Usuarios();
+
     $sigLocal = $usuario->traerSigLocal();
+
 ?>
 
 <?php include __DIR__."/../Vista/head_0.php";   ?>

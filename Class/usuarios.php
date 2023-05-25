@@ -84,12 +84,18 @@ class Usuarios
 
     public function traerSigLocal(){
 
-        $dbh = $this->cid;
-        $stmt = $dbh->prepare("SELECT MAX(NRO_LOCAL)+1 FROM ph_locales ");
-        $stmt->bindParam(1, $talonario);
-        $stmt->execute();
-        $dato = $stmt->fetchColumn(0); 
-        return $dato;
+        try {
+
+            $dbh = $this->cid;
+            $stmt = $dbh->prepare("SELECT MAX(NRO_LOCAL)+1 FROM ph_locales ");
+            $stmt->execute();
+            $dato = $stmt->fetchColumn(0); 
+            
+            return $dato;
+
+        } catch (PDOException $e){
+            echo $e->getMessage();
+        }
 
     }
 
