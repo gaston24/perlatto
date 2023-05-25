@@ -10,7 +10,7 @@ class Conexion{
         $this->envVars = $vars->listVars();
 
         // ENTORNO DE DESARROLLO
-        $this->nameServer = lowercase($this->envVars['ENV']);
+        $this->nameServer = strtolower($this->envVars['ENV']);
         
         $this->host_prod = $this->envVars['HOST_PROD'];
         $this->database = $this->envVars['DATABASE'];
