@@ -1,7 +1,5 @@
 <?php
-
-define(  'ruta', 'https://www.perlattohelados.com.ar/pedidos__dev_new/' ) ;
-// define(  'ruta', 'http://localhost/perlatto/' ) ;
+require_once(__DIR__.'/../routes.php');
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -21,16 +19,16 @@ Pedidos
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 <?php if($_SESSION['tipo']!='ADMIN'){ ?>
-<a class="dropdown-item" href="<?=ruta;?>pedidos/index.php">Nuevo Pedido</a>
-<a class="dropdown-item" href="<?=ruta;?>pedidos/historial.php">Historial Pedidos</a>
+<a class="dropdown-item" href="<?=$prefijo;?>/pedidos/index.php">Nuevo Pedido</a>
+<a class="dropdown-item" href="<?=$prefijo;?>/pedidos/historial.php">Historial Pedidos</a>
 <?php } ?>
 
 <?php if($_SESSION['tipo']!='LOCAL'){ ?>
-<a class="dropdown-item" href="<?=ruta;?>pedidos/pendientes.php">Pedidos Abiertos</a>
-<a class="dropdown-item" href="<?=ruta;?>pedidos/ordenados.php">Abiertos Ordenados</a>
-<a class="dropdown-item" href="<?=ruta;?>pedidos/detalleGustos.php">Abiertos Gustos</a>
-<a class="dropdown-item" href="<?=ruta;?>pedidos/todosPedidosGustoLocal.php">Pedidos por gusto por local</a>
-<a class="dropdown-item" href="<?=ruta;?>pedidos/todosPedidos.php">Todos los pedidos</a>
+<a class="dropdown-item" href="<?=$prefijo;?>/pedidos/pendientes.php">Pedidos Abiertos</a>
+<a class="dropdown-item" href="<?=$prefijo;?>/pedidos/ordenados.php">Abiertos Ordenados</a>
+<a class="dropdown-item" href="<?=$prefijo;?>/pedidos/detalleGustos.php">Abiertos Gustos</a>
+<a class="dropdown-item" href="<?=$prefijo;?>/pedidos/todosPedidosGustoLocal.php">Pedidos por gusto por local</a>
+<a class="dropdown-item" href="<?=$prefijo;?>/pedidos/todosPedidos.php">Todos los pedidos</a>
 <?php } ?>
 </div>
 </li>
@@ -41,8 +39,8 @@ Pedidos
 Usuarios
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-<a class="dropdown-item" href="<?=ruta;?>usuarios/usuarioNuevo.php">Alta</a>
-<a class="dropdown-item" href="<?=ruta;?>usuarios/usuarioListar.php" >Ver / Modificar / Eliminar</a>
+<a class="dropdown-item" href="<?=$prefijo;?>/usuarios/usuarioNuevo.php">Alta</a>
+<a class="dropdown-item" href="<?=$prefijo;?>/usuarios/usuarioListar.php" >Ver / Modificar / Eliminar</a>
 </div>
 </li>
 
@@ -51,8 +49,8 @@ Usuarios
 Gustos
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-<a class="dropdown-item" href="<?=ruta;?>gustos/gustoNuevo.php">Alta Gusto</a>
-<a class="dropdown-item" href="<?=ruta;?>gustos/gustoListar.php">Ver / Modificar / Eliminar</a>
+<a class="dropdown-item" href="<?=$prefijo;?>/gustos/gustoNuevo.php">Alta Gusto</a>
+<a class="dropdown-item" href="<?=$prefijo;?>/gustos/gustoListar.php">Ver / Modificar / Eliminar</a>
 </div>
 </li>
 
@@ -62,8 +60,8 @@ Gustos
 Grupos
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-<a class="dropdown-item" href="<?=ruta;?>grupos/grupoNuevo.php">Alta Grupo</a>
-<a class="dropdown-item" href="<?=ruta;?>grupos/grupoListar.php">Ver / Eliminar</a>
+<a class="dropdown-item" href="<?=$prefijo;?>/grupos/grupoNuevo.php">Alta Grupo</a>
+<a class="dropdown-item" href="<?=$prefijo;?>/grupos/grupoListar.php">Ver / Eliminar</a>
 </div>
 </li>
 
@@ -74,8 +72,8 @@ Producción
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
-<a class="dropdown-item" href="<?=ruta;?>produccion/nuevos.php">Alta Lote</a>
-<a class="dropdown-item" href="<?=ruta;?>produccion/stock.php">Stock</a>
+<a class="dropdown-item" href="<?=$prefijo;?>/produccion/nuevos.php">Alta Lote</a>
+<a class="dropdown-item" href="<?=$prefijo;?>/produccion/stock.php">Stock</a>
 </div>
 </li>
 
@@ -85,8 +83,8 @@ Cuentas De Sucursales
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
-<a class="dropdown-item" href="<?=ruta;?>cuentasDeSucursales/nuevaEntrada.php">Nueva entrada</a>
-<a class="dropdown-item" href="<?=ruta;?>cuentasDeSucursales/resumenDeCuentas.php">Resumen cuentas</a>
+<a class="dropdown-item" href="<?=$prefijo;?>/cuentasDeSucursales/nuevaEntrada.php">Nueva entrada</a>
+<a class="dropdown-item" href="<?=$prefijo;?>/cuentasDeSucursales/resumenDeCuentas.php">Resumen cuentas</a>
 </div>
 </li> -->
 <?php if(in_array($_SESSION['username'], ['SUPER_ADMIN', 'SUPER ADMIN', 'super admin'])) {?>
@@ -96,9 +94,9 @@ Movimientos
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
-<a class="dropdown-item" href="<?=ruta;?>cuentasDeSucursales/movimientoFabrica.php">Fabrica</a>
-<a class="dropdown-item" href="<?=ruta;?>cuentasDeSucursales/movimientoFranquicia.php">Franquicia</a>
-<a class="dropdown-item" href="<?=ruta;?>cuentasDeSucursales/tachosPorSemana.php">Resumen de Franquicias</a>
+<a class="dropdown-item" href="<?=$prefijo;?>/cuentasDeSucursales/movimientoFabrica.php">Fabrica</a>
+<a class="dropdown-item" href="<?=$prefijo;?>/cuentasDeSucursales/movimientoFranquicia.php">Franquicia</a>
+<a class="dropdown-item" href="<?=$prefijo;?>/cuentasDeSucursales/tachosPorSemana.php">Resumen de Franquicias</a>
 </div>
 </li>
 <li class="nav-item dropdown">
@@ -107,8 +105,8 @@ Maestro De Valores
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
-    <a class="dropdown-item" href="<?=ruta;?>cuentasDeSucursales/agregarValores.php">Alta Valores</a>
-<a class="dropdown-item" href="<?=ruta;?>cuentasDeSucursales/listarValores.php">Ver / Modificar / Eliminar</a>
+    <a class="dropdown-item" href="<?=$prefijo;?>/cuentasDeSucursales/agregarValores.php">Alta Valores</a>
+<a class="dropdown-item" href="<?=$prefijo;?>/cuentasDeSucursales/listarValores.php">Ver / Modificar / Eliminar</a>
 </div>
 </li>
 <?php } ?>
@@ -126,7 +124,7 @@ Usuario: <?=$_SESSION['username'] ?>
 
 
 <button name="btnCerrarSesion" value="Cerrar Session" class="dropdown-item">
-<a href="<?=ruta;?>login.php">Cerrar Session</a>
+<a href="<?=$prefijo;?>/login.php">Cerrar Session</a>
 </button>
 
 
