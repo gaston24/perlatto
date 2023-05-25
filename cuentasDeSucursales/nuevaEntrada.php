@@ -4,11 +4,6 @@ if(!isset($_SESSION['username'])){
 	header("Location:login.php");
 }else{
 
-
-    include __DIR__."/../Class/usuarios.php";
-    $usuario = new Usuarios();
-    $sigLocal = $usuario->traerSigLocal();
-
     include __DIR__."/../Class/locales.php";   
 
     $local = new Local();

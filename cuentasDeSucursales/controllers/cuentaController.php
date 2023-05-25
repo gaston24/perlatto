@@ -1,5 +1,5 @@
 <?php
-include __DIR__."/../../Class/Cuenta.php";   
+include __DIR__."/../../Class/cuenta.php";   
 
 $cuenta = new Cuenta();
 
